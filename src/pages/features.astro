@@ -1,0 +1,80 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import { FEATURE_GROUPS, KEYBOARD_SHORTCUTS } from '../lib/features';
+import { NAV, SITE } from '../lib/site';
+---
+<Base
+  title="Features"
+  description="Every shipped feature in Itemized: nested locations, expiration rules, automatic shopping list, barcode scanning, Zebra ZPL label printing, FTS5 search, and OIDC SSO."
+>
+  <header class="page-head">
+    <div class="wrap">
+      <p class="kicker">Features</p>
+      <h1>Everything included, running on your hardware.</h1>
+      <p class="lede">
+        Every capability below is shipped in the single Itemized binary with no paid tiers, add-on servers, or cloud subscriptions.
+      </p>
+      <nav class="jump-nav" aria-label="Feature groups">
+        {FEATURE_GROUPS.map((group) => (
+          <a href={`#${group.id}`}>{group.kicker}</a>
+        ))}
+      </nav>
+    </div>
+  </header>
+
+  {FEATURE_GROUPS.map((group, idx) => (
+    <section
+      id={group.id}
+      class:list={['section', idx % 2 === 1 && 'section-alt']}
+      aria-labelledby={`${group.id}-title`}
+    >
+      <div class="wrap">
+        <div class="section-head">
+          <p class="kicker">{group.kicker}</p>
+          <h2 id={`${group.id}-title`}>{group.title}</h2>
+          <p class="lede">{group.lede}</p>
+        </div>
+        <div class:list={[group.items.length === 2 ? 'grid-2' : 'grid-3']}>
+          {group.items.map((item) => (
+            <article class="card">
+              <div class="card-icon"><Icon name={group.icon} size={20} /></div>
+              <h3>{item.title}</h3>
+              <p>{item.summary}</p>
+            </article>
+          ))}
+        </div>
+
+        {group.id === 'search-and-shortcuts' && (
+          <div class="shortcut-grid" aria-label="Desktop keyboard shortcuts">
+            {KEYBOARD_SHORTCUTS.map((sc) => (
+              <div class="shortcut-row">
+                <span>{sc.action}</span>
+                <span class="shortcut-keys">
+                  {sc.keys.map((k) => <kbd>{k}</kbd>)}
+                </span>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
+  ))}
+
+  <section class="section section-alt" aria-labelledby="features-cta-title">
+    <div class="wrap narrow">
+      <h2 id="features-cta-title">Ready to try it yourself?</h2>
+      <p class="lede">
+        Test every workflow in the live demo or deploy Itemized on your own server with Docker Compose.
+      </p>
+      <div class="cta-row" style="margin-top: 1.5rem;">
+        <a class="btn btn-primary btn-large" href={SITE.demo}>
+          <span>Try Live Demo</span>
+          <Icon name="arrow-right" size={18} />
+        </a>
+        <a class="btn btn-secondary btn-large" href={NAV.selfHost}>Self-Host Quick Start</a>
+        <a class="btn btn-secondary btn-large" href={NAV.configuration}>Configuration Reference</a>
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,101 @@
+---
+import Base from '../layouts/Base.astro';
+import CodeBlock from '../components/CodeBlock.astro';
+import Icon from '../components/Icon.astro';
+import { DOCKER_COMPOSE_SNIPPET, DOCKER_RUN_SNIPPET } from '../lib/config';
+import { NAV, SITE } from '../lib/site';
+---
+<Base
+  title="Self-Host Quick Start"
+  description="Deploy Itemized with Docker Compose, Docker Run, or Unraid Community Apps, and configure HTTPS for mobile barcode scanning."
+>
+  <header class="page-head">
+    <div class="wrap">
+      <p class="kicker">Self-Host</p>
+      <h1>Up and running in one container.</h1>
+      <p class="lede">
+        Pre-built multi-architecture images (<code>linux/amd64</code> and <code>linux/arm64</code>) are published to GitHub Container Registry at <code>{SITE.image}</code>.
+      </p>
+      <nav class="jump-nav" aria-label="Deployment methods">
+        <a href="#docker-compose">Docker Compose</a>
+        <a href="#docker-run">Docker Run</a>
+        <a href="#unraid">Unraid</a>
+        <a href="#https">HTTPS &amp; Reverse Proxy</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="section" id="docker-compose" aria-labelledby="compose-title">
+    <div class="wrap prose">
+      <p class="kicker">Recommended</p>
+      <h2 id="compose-title">Docker Compose</h2>
+      <p>
+        Create a <code>docker-compose.yml</code> file and mount a persistent volume at <code>/data</code> where Itemized stores its SQLite WAL database (<code>/data/itemized.db</code>).
+      </p>
+      <CodeBlock label="docker-compose.yml" code={DOCKER_COMPOSE_SNIPPET} />
+      <CodeBlock label="Start the container" code="docker compose up -d" />
+      <p>
+        Open <code>http://localhost:8080</code> (or your reverse-proxy HTTPS URL) in a browser to complete first-run administrator setup.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="docker-run" aria-labelledby="run-title">
+    <div class="wrap prose">
+      <p class="kicker">Single command</p>
+      <h2 id="run-title">Docker Run</h2>
+      <p>
+        Prefer running Docker directly? Pass the same port, volume, and environment variables via <code>docker run</code>:
+      </p>
+      <CodeBlock label="Shell" code={DOCKER_RUN_SNIPPET} />
+    </div>
+  </section>
+
+  <section class="section" id="unraid" aria-labelledby="unraid-title">
+    <div class="wrap prose">
+      <p class="kicker">Unraid</p>
+      <h2 id="unraid-title">Unraid Community Apps</h2>
+      <p>
+        An official Unraid template is maintained in the repository at <a href={SITE.unraidTemplate}><code>unraid/itemized.xml</code></a>.
+      </p>
+      <ul>
+        <li>
+          <strong>Automatic <code>/data</code> ownership:</strong> The container entrypoint ensures <code>/data</code> matches <code>PUID:PGID</code> (<code>99:100</code> / <code>nobody:users</code> in the Unraid template, or <code>1000:1000</code> by default) before dropping privileges to run <code>/usr/local/bin/itemized</code> as a non-root user.
+        </li>
+        <li>
+          <strong>Explicit <code>--user</code> support:</strong> If launched with an explicit non-root <code>--user</code> flag, privilege dropping is skipped automatically.
+        </li>
+        <li>
+          <strong>Direct LAN printer access:</strong> Standard bridge networking reaches LAN printers directly on outbound connections—both Zebra ZSB IPP endpoints (<code>:631</code>) and Raw TCP ZPL printers (<code>:9100</code>).
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="https" aria-labelledby="https-title">
+    <div class="wrap prose">
+      <p class="kicker">Required for mobile scanning</p>
+      <h2 id="https-title">HTTPS &amp; Reverse Proxy</h2>
+      <div class="callout callout-warn">
+        <p>
+          <strong>Mobile browsers require HTTPS for live camera access.</strong> Modern mobile browsers—including iOS Safari and Chrome or Firefox on iOS—disable the camera API (<code>navigator.mediaDevices</code>) on plain <code>http://</code> LAN URLs such as <code>http://192.168.1.x:8080</code>.
+        </p>
+      </div>
+      <p>
+        To use live camera barcode scanning on phones and tablets, serve Itemized over <strong>HTTPS</strong> behind a reverse proxy such as <strong>Nginx Proxy Manager</strong>, <strong>Caddy</strong>, <strong>Traefik</strong>, <strong>SWAG</strong>, or <strong>Tailscale Serve</strong>.
+      </p>
+      <p>When running behind a reverse proxy, configure two environment variables:</p>
+      <ul>
+        <li><code>TRUST_PROXY=true</code> — ensures rate limiting reads client IP addresses from <code>X-Forwarded-For</code> / <code>X-Real-IP</code>.</li>
+        <li><code>BASE_URL=https://itemized.example.com</code> — ensures printed QR labels encode your HTTPS address.</li>
+      </ul>
+      <div class="cta-row" style="margin-top: 1.5rem;">
+        <a class="btn btn-primary" href={NAV.configuration}>
+          <span>Configuration &amp; Printing Reference</span>
+          <Icon name="arrow-right" size={16} />
+        </a>
+        <a class="btn btn-secondary" href={NAV.install}>Install Mobile PWA</a>
+      </div>
+    </div>
+  </section>
+</Base>

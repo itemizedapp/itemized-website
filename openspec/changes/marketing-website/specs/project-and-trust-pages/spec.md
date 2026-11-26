@@ -1,0 +1,28 @@
+# Spec Delta
+
+## Purpose
+
+Defines the About (`/about/`), Security (`/security/`), and Privacy (`/privacy/`) pages that communicate Itemized's project philosophy, self-hosted data ownership, zero-tracking website posture, and security reporting process.
+
+## ADDED Requirements
+
+### Requirement: About page
+The About page (`/about/`) SHALL explain why Itemized exists, its single-binary self-hosted architecture, its open-source home on GitHub, and how to try or contribute to the project.
+
+#### Scenario: Learning about the project
+- **WHEN** a visitor opens `/about/`
+- **THEN** the page summarizes Itemized's purpose (fast, self-hosted household inventory without subscriptions or cloud lock-in), architectural principles (single Go binary, embedded React SPA, single SQLite file), and links to the GitHub repository, issue tracker, and live demo
+
+### Requirement: Security page
+The Security page (`/security/`) SHALL describe Itemized's security model for self-hosters and how to report vulnerabilities responsibly.
+
+#### Scenario: Reviewing security posture and reporting a vulnerability
+- **WHEN** a self-hoster or security researcher opens `/security/`
+- **THEN** the page documents key security controls (local password auth and OIDC SSO with PKCE, Admin/Member roles, non-root container execution via `PUID`/`PGID`, `TRUST_PROXY` rate-limiting behavior, HTTPS requirement for camera access, and sandboxed `DEMO_MODE`), and provides clear instructions for reporting security issues via GitHub Security Advisories or the repository
+
+### Requirement: Privacy page
+The Privacy page (`/privacy/`) SHALL clearly distinguish between the marketing website's privacy posture and a self-hosted Itemized instance's data flow.
+
+#### Scenario: Reviewing website and app privacy
+- **WHEN** a visitor opens `/privacy/`
+- **THEN** the page states that the marketing website sets no cookies, loads no third-party analytics or ad scripts, and collects no personal data, and clarifies that self-hosted Itemized instances store all inventory data locally in SQLite with outbound calls only when the user invokes optional features (OpenFoodFacts barcode lookup, user-configured LLM provider, user-configured OIDC IdP, or LAN printers)

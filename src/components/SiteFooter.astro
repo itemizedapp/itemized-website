@@ -1,0 +1,74 @@
+---
+import Icon from './Icon.astro';
+import { FOOTER_GROUPS, NAV, SITE } from '../lib/site';
+
+const year = new Date().getFullYear();
+
+const community = [
+  { label: 'GitHub repository', href: SITE.appRepo, icon: 'star' },
+  { label: 'Releases', href: SITE.releases, icon: 'tag' },
+  { label: 'Issues', href: SITE.issues, icon: 'bug' },
+  { label: 'Live Demo', href: SITE.demo, icon: 'external-link' },
+];
+---
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="brand" href={NAV.home}>
+          <img src="/favicon.svg" width="24" height="24" alt="" />
+          <span>{SITE.name}</span>
+        </a>
+        <p>{SITE.tagline}</p>
+      </div>
+
+      {FOOTER_GROUPS.map((group) => (
+        <nav aria-label={group.title} class="footer-group">
+          <h2>{group.title}</h2>
+          <ul>
+            {group.links.map((link) => (
+              <li><a href={link.href}>{link.label}</a></li>
+            ))}
+          </ul>
+        </nav>
+      ))}
+
+      <div class="footer-fold">
+        {FOOTER_GROUPS.map((group) => (
+          <nav aria-label={group.title}>
+            <details>
+              <summary>
+                <span>{group.title}</span>
+                <Icon name="chevron-down" size={16} class="chev" />
+              </summary>
+              <ul>
+                {group.links.map((link) => (
+                  <li><a href={link.href}>{link.label}</a></li>
+                ))}
+              </ul>
+            </details>
+          </nav>
+        ))}
+      </div>
+    </div>
+
+    <nav class="footer-community" aria-label="Community and source">
+      <ul>
+        {community.map((item) => (
+          <li>
+            <a href={item.href}>
+              <Icon name={item.icon} size={16} />
+              <span>{item.label}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <p class="footer-legal">
+      <span>© {year} Itemized contributors</span>
+      <span>Self-hosted Go + SQLite household inventory</span>
+      <span>This website uses no cookies and no third-party analytics.</span>
+    </p>
+  </div>
+</footer>

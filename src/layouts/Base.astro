@@ -1,0 +1,91 @@
+---
+import '@fontsource-variable/inter';
+import '../styles/tokens.css';
+import '../styles/site.css';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import { SITE } from '../lib/site';
+
+interface Props {
+  title: string;
+  description: string;
+  bareTitle?: boolean;
+  noindex?: boolean;
+}
+
+const { title, description, bareTitle = false, noindex = false } = Astro.props;
+const fullTitle = bareTitle ? title : `${title} — ${SITE.name}`;
+const canonical = new URL(Astro.url.pathname, SITE.url).href;
+const ogImage = new URL(SITE.ogImage, SITE.url).href;
+---
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content={SITE.ogAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={SITE.ogAlt} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large'} />
+    <script is:inline>document.documentElement.classList.replace('no-js', 'js');</script>
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <SiteHeader />
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <SiteFooter />
+    <script is:inline>
+      (() => {
+        const menus = () => document.querySelectorAll('details.nav-menu[open]');
+        document.addEventListener('click', (e) => {
+          menus().forEach((d) => {
+            if (!d.contains(e.target)) d.open = false;
+          });
+        });
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') {
+            menus().forEach((d) => {
+              d.open = false;
+              d.querySelector('summary')?.focus();
+            });
+          }
+        });
+        document.querySelectorAll('[data-copy]').forEach((btn) => {
+          btn.addEventListener('click', async () => {
+            const block = btn.closest('.code-block');
+            const code = block?.querySelector('pre code')?.textContent ?? '';
+            if (!code || !navigator.clipboard) return;
+            try {
+              await navigator.clipboard.writeText(code);
+              const label = btn.querySelector('span');
+              if (label) {
+                const prev = label.textContent;
+                label.textContent = 'Copied';
+                setTimeout(() => { label.textContent = prev; }, 1800);
+              }
+            } catch {}
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>

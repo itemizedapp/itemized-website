@@ -1,0 +1,53 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import { NAV, SITE } from '../lib/site';
+---
+<Base
+  title="About"
+  description="Why Itemized exists, how its single-binary Go and SQLite architecture stays simple, and how to follow or contribute on GitHub."
+>
+  <header class="page-head">
+    <div class="wrap">
+      <p class="kicker">About</p>
+      <h1>Practical home inventory, without the cloud or the bloat.</h1>
+      <p class="lede">
+        Itemized was built to make tracking your pantry, fridge, freezers, and storage shelves fast enough that your household actually uses it.
+      </p>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="wrap prose">
+      <h2>Design principles</h2>
+      <ul>
+        <li>
+          <strong>Fast on real devices:</strong> Whether you are checking your shopping list at the grocery store on your phone or scanning a delivery with a USB barcode scanner at home, common actions take seconds.
+        </li>
+        <li>
+          <strong>Simple to operate:</strong> Itemized ships as a single Go binary with an embedded React SPA and a single SQLite database in WAL mode. There is no separate database server, cache, or print daemon to babysit.
+        </li>
+        <li>
+          <strong>Built for households, not enterprises:</strong> Nested locations, expiration rules for opening and freezing, direct Zebra label printing, and simple Admin/Member roles cover real home workflows cleanly.
+        </li>
+        <li>
+          <strong>Yours to keep:</strong> No subscriptions, no mandatory cloud account, and plain SQLite storage you can back up anywhere.
+        </li>
+      </ul>
+
+      <h2>Open source on GitHub</h2>
+      <p>
+        Itemized is developed in the open at <a href={SITE.appRepo}>github.com/itemizedapp/itemized</a>. Bug reports, feature discussions, and pull requests are welcome.
+      </p>
+      <div class="cta-row" style="margin-top: 1.5rem;">
+        <a class="btn btn-primary" href={SITE.appRepo}>
+          <Icon name="star" size={16} />
+          <span>View on GitHub</span>
+        </a>
+        <a class="btn btn-secondary" href={SITE.issues}>Report an Issue</a>
+        <a class="btn btn-secondary" href={SITE.demo}>Try Live Demo</a>
+        <a class="btn btn-ghost" href={NAV.selfHost}>Self-Host Guide</a>
+      </div>
+    </div>
+  </section>
+</Base>

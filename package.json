@@ -1,0 +1,34 @@
+{
+  "name": "itemized-website",
+  "private": true,
+  "type": "module",
+  "version": "0.1.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "check:links": "node scripts/checks/links.mjs dist",
+    "check:seo": "node scripts/checks/seo.mjs dist",
+    "check:scripts": "node scripts/checks/scripts.mjs dist",
+    "check:dist": "npm run check:links && npm run check:seo && npm run check:scripts",
+    "test:browser": "playwright test"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.3.0",
+    "@fontsource-variable/inter": "^5.2.5",
+    "astro": "^5.7.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@axe-core/playwright": "^4.10.2",
+    "@playwright/test": "^1.52.0",
+    "@types/node": "^22.15.0",
+    "node-html-parser": "^7.0.1",
+    "sharp": "^0.34.1",
+    "typescript": "^5.8.3"
+  }
+}

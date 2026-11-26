@@ -1,0 +1,22 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  code: string;
+  label?: string;
+}
+
+const { code, label } = Astro.props;
+---
+<div class:list={['code-block', label && 'has-head']}>
+  {label && (
+    <div class="code-head">
+      <span>{label}</span>
+      <button type="button" class="copy-btn" data-copy>
+        <Icon name="copy" size={14} />
+        <span>Copy</span>
+      </button>
+    </div>
+  )}
+  <pre><code>{code}</code></pre>
+</div>

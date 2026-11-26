@@ -1,0 +1,277 @@
+---
+import { Image } from 'astro:assets';
+import inventoryShot from '../assets/screenshot-inventory.jpg';
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import JsonLd from '../components/JsonLd.astro';
+import { NAV, SITE } from '../lib/site';
+
+const dailyWorkflows = [
+  {
+    icon: 'package',
+    title: 'Track stock and expiration dates',
+    body: 'Organize items into nested locations like Kitchen → Refrigerator → Crisper Drawer or Garage → Chest Freezer. Due-soon and overdue items surface automatically with smart rules for opening, freezing, and thawing.',
+    href: `${NAV.features}#inventory-and-expiration`,
+    linkLabel: 'See inventory tracking',
+  },
+  {
+    icon: 'scan-barcode',
+    title: 'Scan barcodes from phone or USB',
+    body: 'Use your phone camera in the mobile PWA or a USB/Bluetooth scanner in the unified Scan / Action workflow to Purchase, Consume, Open, Transfer, or run a Location Inventory Audit.',
+    href: `${NAV.features}#barcode-and-qr-scanning`,
+    linkLabel: 'See scanning workflow',
+  },
+  {
+    icon: 'shopping-cart',
+    title: 'Automatic shopping list',
+    body: 'Set minimum stock levels on products so low-stock items appear on your shopping list automatically, add one-off items in a tap, and clear them automatically as you restock.',
+    href: `${NAV.features}#shopping-list`,
+    linkLabel: 'See shopping list',
+  },
+];
+
+const craftHighlights = [
+  {
+    icon: 'printer',
+    title: 'Direct LAN Zebra ZPL label printing',
+    body: 'Print QR labels directly to Zebra ZSB (IPP) and Raw TCP (:9100) ZPL printers on your local network—no companion print server needed—with customizable Go-template ZPL layouts for items, products, and locations.',
+    href: `${NAV.configuration}#printing`,
+    linkLabel: 'Label printing setup',
+  },
+  {
+    icon: 'search',
+    title: 'Instant search and keyboard shortcuts',
+    body: 'Typo-tolerant SQLite FTS5 trigram search finds items immediately, paired with Gmail-style desktop shortcuts (g i, g s, g d, g o, g a, n, ?) for fast updates.',
+    href: `${NAV.features}#search-and-shortcuts`,
+    linkLabel: 'Explore shortcuts',
+  },
+];
+
+const ownershipPillars = [
+  {
+    icon: 'server',
+    title: 'Single Go binary',
+    body: 'Backend and embedded React SPA ship together in one multi-arch container (linux/amd64 and linux/arm64) with an official Unraid template.',
+  },
+  {
+    icon: 'database',
+    title: 'One SQLite WAL file',
+    body: 'No external database server or Redis to maintain. Your entire household inventory lives in /data/itemized.db for straightforward backups.',
+  },
+  {
+    icon: 'users',
+    title: 'Household accounts and OIDC SSO',
+    body: 'Support Admin and Member roles with local passwords or OIDC SSO (Authentik, Authelia, Pocket ID, Keycloak) with PKCE and auto-provisioning.',
+  },
+  {
+    icon: 'lock',
+    title: 'Optional AI, on your terms',
+    body: 'Unknown retail barcodes check OpenFoodFacts first, with optional AI naming via Anthropic, OpenAI, Gemini, or a local Ollama endpoint.',
+  },
+];
+
+const nextSteps = [
+  {
+    icon: 'external-link',
+    title: 'Try the Live Demo',
+    body: 'Explore a pre-seeded household inventory right in your browser. No login required; sample data resets every hour.',
+    href: SITE.demo,
+    linkLabel: 'Open demo.itemizedapp.com',
+  },
+  {
+    icon: 'server',
+    title: 'Self-Host in minutes',
+    body: 'Start with Docker Compose, Docker Run, or the Unraid Community Apps template and put it behind your HTTPS reverse proxy.',
+    href: NAV.selfHost,
+    linkLabel: 'Read Quick Start',
+  },
+  {
+    icon: 'smartphone',
+    title: 'Install on your phone',
+    body: 'Add Itemized to your iOS or Android home screen as a PWA for quick grocery checks and live camera barcode scanning.',
+    href: NAV.install,
+    linkLabel: 'Mobile PWA guide',
+  },
+  {
+    icon: 'package',
+    title: 'Browse all features',
+    body: 'Review every shipped capability, keyboard shortcut, and hardware integration in detail.',
+    href: NAV.features,
+    linkLabel: 'All features',
+  },
+];
+---
+<Base
+  title="Itemized — Self-hosted household inventory management"
+  bareTitle
+  description="Self-hosted household inventory management, expiration tracking, barcode scanning, and direct Zebra ZPL label printing in a single Go binary."
+>
+  <JsonLd
+    slot="head"
+    data={[
+      {
+        '@type': 'WebSite',
+        '@id': `${SITE.url}/#website`,
+        name: SITE.name,
+        url: SITE.url,
+        inLanguage: 'en',
+        publisher: { '@id': `${SITE.url}/#organization` },
+      },
+      {
+        '@type': 'Organization',
+        '@id': `${SITE.url}/#organization`,
+        name: SITE.name,
+        url: SITE.url,
+        logo: `${SITE.url}/icon-192.png`,
+        sameAs: [SITE.appRepo],
+      },
+      {
+        '@type': 'SoftwareApplication',
+        name: SITE.name,
+        url: SITE.url,
+        applicationCategory: 'LifestyleApplication',
+        operatingSystem: 'Web PWA, iOS, Android, Desktop (self-hosted server: Docker on linux/amd64 and linux/arm64)',
+        isAccessibleForFree: true,
+        offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+        author: { '@id': `${SITE.url}/#organization` },
+        downloadUrl: SITE.appRepo,
+        installUrl: `${SITE.url}${NAV.selfHost}`,
+        description: SITE.tagline,
+      },
+    ]}
+  />
+
+  <section class="lp-hero" aria-labelledby="hero-title">
+    <div class="wrap">
+      <div class="lp-hero-text">
+        <p class="kicker">Self-hosted household inventory</p>
+        <h1 id="hero-title">Know what is in your pantry, fridge, and freezer.</h1>
+        <p class="lp-lede">
+          Itemized is a self-hosted home inventory system with expiration tracking, automatic shopping lists, mobile and USB barcode scanning, and direct LAN Zebra ZPL label printing—all in a single Go binary.
+        </p>
+        <div class="cta-row">
+          <a class="btn btn-primary btn-large" href={SITE.demo}>
+            <span>Try Live Demo</span>
+            <Icon name="arrow-right" size={18} />
+          </a>
+          <a class="btn btn-secondary btn-large" href={NAV.selfHost}>Self-Host Guide</a>
+        </div>
+        <p class="lp-note">
+          No login required on the live demo — sample household data resets automatically every hour.
+        </p>
+      </div>
+
+      <div class="lp-stage">
+        <figure>
+          <Image
+            src={inventoryShot}
+            alt="Itemized web application showing household inventory stock levels, nested storage locations, categories, and expiration status"
+            widths={[640, 960, 1280]}
+            sizes="(min-width: 1152px) 1104px, calc(100vw - 32px)"
+            loading="eager"
+            fetchpriority="high"
+          />
+          <figcaption>
+            Inventory overview with nested locations, stock counts, due-soon indicators, and instant typo-tolerant search.
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="daily-title">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="kicker">Everyday kitchen workflow</p>
+        <h2 id="daily-title">Fast from the grocery aisle or the kitchen counter</h2>
+        <p class="lede">
+          Keep stock accurate without turning household chores into data entry.
+        </p>
+      </div>
+      <div class="grid-3">
+        {dailyWorkflows.map((item) => (
+          <article class="card">
+            <div class="card-icon"><Icon name={item.icon} size={20} /></div>
+            <h3>{item.title}</h3>
+            <p>{item.body}</p>
+            <a class="card-link" href={item.href}>
+              <span>{item.linkLabel}</span>
+              <Icon name="arrow-right" size={15} />
+            </a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" aria-labelledby="craft-title">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="kicker">Built for real hardware</p>
+        <h2 id="craft-title">Direct label printing and instant navigation</h2>
+        <p class="lede">
+          Skip companion print daemons and sluggish search bars. Itemized talks straight to your LAN Zebra printer and indexes every item locally with SQLite FTS5.
+        </p>
+      </div>
+      <div class="grid-2">
+        {craftHighlights.map((item) => (
+          <article class="card">
+            <div class="card-icon"><Icon name={item.icon} size={20} /></div>
+            <h3>{item.title}</h3>
+            <p>{item.body}</p>
+            <a class="card-link" href={item.href}>
+              <span>{item.linkLabel}</span>
+              <Icon name="arrow-right" size={15} />
+            </a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="ownership-title">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="kicker">Yours to run</p>
+        <h2 id="ownership-title">Zero-dependency self-hosting, no subscriptions</h2>
+        <p class="lede">
+          Deploy one container, point it at a single volume, and keep your household data on your own network.
+        </p>
+      </div>
+      <div class="grid-2">
+        {ownershipPillars.map((pillar) => (
+          <article class="card">
+            <div class="card-icon"><Icon name={pillar.icon} size={20} /></div>
+            <h3>{pillar.title}</h3>
+            <p>{pillar.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" aria-labelledby="start-title">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="kicker">Get started</p>
+        <h2 id="start-title">Choose your way in</h2>
+        <p class="lede">
+          Try the hourly-resetting demo right now or spin up your own instance in under two minutes.
+        </p>
+      </div>
+      <div class="grid-2">
+        {nextSteps.map((step) => (
+          <article class="card">
+            <div class="card-icon"><Icon name={step.icon} size={20} /></div>
+            <h3>{step.title}</h3>
+            <p>{step.body}</p>
+            <a class="card-link" href={step.href}>
+              <span>{step.linkLabel}</span>
+              <Icon name="arrow-right" size={15} />
+            </a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>

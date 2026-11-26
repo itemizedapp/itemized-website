@@ -1,0 +1,49 @@
+---
+import Base from '../layouts/Base.astro';
+import { NAV, SITE } from '../lib/site';
+---
+<Base
+  title="Privacy"
+  description="Zero cookies and zero third-party tracking on itemizedapp.com, plus a clear summary of data flows in a self-hosted Itemized instance."
+>
+  <header class="page-head">
+    <div class="wrap">
+      <p class="kicker">Privacy</p>
+      <h1>No tracking on this site. Your inventory stays on your server.</h1>
+      <p class="lede">
+        A plain summary of what happens when you visit itemizedapp.com and when you run Itemized at home.
+      </p>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="wrap prose">
+      <h2>This website (itemizedapp.com)</h2>
+      <ul>
+        <li><strong>No cookies:</strong> This site does not set tracking or advertising cookies.</li>
+        <li><strong>No third-party analytics or ads:</strong> No external analytics scripts, pixels, or third-party font CDNs are loaded by your browser.</li>
+        <li><strong>No personal data collection:</strong> Reading these pages requires no account and submits no personal information.</li>
+      </ul>
+
+      <h2>Your self-hosted Itemized instance</h2>
+      <p>
+        When you run Itemized on your own hardware, all products, locations, stock levels, expiration dates, and shopping lists are stored locally in your SQLite database file (<code>/data/itemized.db</code>). Itemized has no built-in telemetry or phone-home reporting.
+      </p>
+      <p>Outbound network requests occur only when you configure or trigger optional features:</p>
+      <ul>
+        <li><strong>OpenFoodFacts barcode lookup:</strong> Triggered when you scan an unknown retail barcode to look up product metadata.</li>
+        <li><strong>Optional AI/LLM normalization:</strong> Sent only to the provider you explicitly configure via <code>LLM_PROVIDER</code> (including a local Ollama endpoint on your own LAN).</li>
+        <li><strong>Optional OIDC SSO:</strong> Communicates with the identity provider you configure via <code>OIDC_ISSUER</code>.</li>
+        <li><strong>Direct LAN printing:</strong> Sends print jobs only to the local Zebra IPP or Raw TCP printer address you configure.</li>
+      </ul>
+
+      <h2>The public live demo</h2>
+      <p>
+        The public demo at <a href={SITE.demo}>demo.itemizedapp.com</a> runs with <code>DEMO_MODE=true</code>, requires no sign-in, sandboxes outbound printer/OIDC/LLM calls, and resets its sample database automatically every hour. Do not enter personal or private information into the shared demo.
+      </p>
+      <p>
+        For deployment and configuration details, see <a href={NAV.selfHost}>Self-Host Quick Start</a> and <a href={NAV.configuration}>Configuration</a>.
+      </p>
+    </div>
+  </section>
+</Base>

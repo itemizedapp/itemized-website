@@ -1,0 +1,49 @@
+---
+import Base from '../layouts/Base.astro';
+import { NAV, SITE } from '../lib/site';
+---
+<Base
+  title="Security"
+  description="Itemized’s security controls for self-hosters—authentication, non-root containers, reverse proxy rate limiting, sandboxed demo mode—and how to report vulnerabilities."
+>
+  <header class="page-head">
+    <div class="wrap">
+      <p class="kicker">Security</p>
+      <h1>Defense in depth for self-hosted instances.</h1>
+      <p class="lede">
+        How Itemized handles authentication, container privileges, reverse proxies, and responsible vulnerability disclosure.
+      </p>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="wrap prose">
+      <h2>Security controls in Itemized</h2>
+      <ul>
+        <li>
+          <strong>Authentication &amp; roles:</strong> Supports local password authentication and optional OIDC SSO using Authorization Code flow with PKCE (tested with Authentik, Authelia, Pocket ID, and Keycloak). Accounts use <strong>Admin</strong> and <strong>Member</strong> roles, and <code>OIDC_FORCE=true</code> disables local password login completely.
+        </li>
+        <li>
+          <strong>Non-root container execution:</strong> The container entrypoint ensures <code>/data</code> ownership matches <code>PUID:PGID</code> and drops privileges to run <code>/usr/local/bin/itemized</code> as a non-root user. Explicit non-root <code>--user</code> launches are supported automatically.
+        </li>
+        <li>
+          <strong>Reverse proxy rate limiting:</strong> Set <code>TRUST_PROXY=true</code> when running behind a reverse proxy so rate limiting reads client IPs from <code>X-Forwarded-For</code> / <code>X-Real-IP</code> rather than the proxy address.
+        </li>
+        <li>
+          <strong>HTTPS for camera access:</strong> Serving Itemized over HTTPS protects credentials in transit and satisfies browser security requirements for mobile camera barcode scanning. See <a href={`${NAV.selfHost}#https`}>HTTPS &amp; Reverse Proxy</a>.
+        </li>
+        <li>
+          <strong>Sandboxed public demo mode:</strong> When <code>DEMO_MODE=true</code> is enabled, outbound printer, OIDC, and LLM calls are sandboxed, UPC lookups are rate-limited to 5/min, and sample data resets automatically on <code>DEMO_RESET_INTERVAL</code>.
+        </li>
+      </ul>
+
+      <h2>Reporting a vulnerability</h2>
+      <p>
+        If you discover a security vulnerability in Itemized, please report it privately using <a href={SITE.securityAdvisories}>GitHub Security Advisories</a> rather than opening a public issue.
+      </p>
+      <p>
+        Include steps to reproduce, the affected version or container digest, and any relevant configuration details so the issue can be verified and patched quickly.
+      </p>
+    </div>
+  </section>
+</Base>

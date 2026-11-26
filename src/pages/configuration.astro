@@ -1,0 +1,135 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import { ENV_VARS, PRINTER_PROTOCOLS } from '../lib/config';
+import { NAV } from '../lib/site';
+
+const categories: { id: 'core' | 'oidc' | 'llm' | 'demo'; title: string; summary: string }[] = [
+  {
+    id: 'core',
+    title: 'Core server & storage',
+    summary: 'Listen port, SQLite database path, container permissions, reverse proxy trust, and canonical QR URL.',
+  },
+  {
+    id: 'oidc',
+    title: 'OIDC Single Sign-On',
+    summary: 'Optional OpenID Connect authentication (Auth Code + PKCE) tested with Authentik, Authelia, Pocket ID, and Keycloak.',
+  },
+  {
+    id: 'llm',
+    title: 'Optional AI UPC normalization',
+    summary: 'Optional LLM-assisted product naming and categorization after OpenFoodFacts barcode lookups, including local Ollama.',
+  },
+  {
+    id: 'demo',
+    title: 'Public demo mode',
+    summary: 'Sandboxed evaluation mode with automatic periodic database resets.',
+  },
+];
+---
+<Base
+  title="Configuration & Label Printing"
+  description="Complete environment variable reference, OIDC SSO, optional AI barcode normalization, and direct LAN Zebra ZPL label printing setup for Itemized."
+>
+  <header class="page-head">
+    <div class="wrap">
+      <p class="kicker">Reference</p>
+      <h1>Configuration &amp; Label Printing</h1>
+      <p class="lede">
+        Configure Itemized with environment variables at startup, or edit instance settings directly in the in-app <strong>Settings</strong> page after first-run setup.
+      </p>
+      <nav class="jump-nav" aria-label="Configuration sections">
+        <a href="#env-vars">Environment Variables</a>
+        <a href="#printing">Zebra Label Printing</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="section" id="env-vars" aria-labelledby="env-title">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="kicker">Environment</p>
+        <h2 id="env-title">Environment variables</h2>
+        <p class="lede">
+          All instance settings—except <code>PORT</code>, <code>DB_PATH</code>, <code>PUID</code>/<code>PGID</code>, <code>TRUST_PROXY</code>, and <code>DEMO_*</code>—can also be updated in <strong>Settings</strong> after setup.
+        </p>
+      </div>
+
+      {categories.map((cat) => {
+        const rows = ENV_VARS.filter((v) => v.category === cat.id);
+        return (
+          <div style="margin-bottom: 2.5rem;">
+            <h3>{cat.title}</h3>
+            <p class="muted" style="margin-bottom: 0.75rem;">{cat.summary}</p>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th scope="col">Variable</th>
+                    <th scope="col">Default</th>
+                    <th scope="col">In-app UI</th>
+                    <th scope="col">Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {rows.map((v) => (
+                    <tr>
+                      <td><code>{v.name}</code></td>
+                      <td><code>{v.defaultValue}</code></td>
+                      <td>
+                        {v.inAppEditable ? <span class="badge">Editable</span> : <span class="muted">Env only</span>}
+                      </td>
+                      <td>{v.description}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </section>
+
+  <section class="section section-alt" id="printing" aria-labelledby="printing-title">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="kicker">Direct LAN Printing</p>
+        <h2 id="printing-title">Zebra ZPL label printing</h2>
+        <p class="lede">
+          Itemized prints QR labels straight to Zebra printers on your local network without a companion print server or browser plugin.
+        </p>
+      </div>
+
+      <div class="grid-2">
+        {PRINTER_PROTOCOLS.map((proto) => (
+          <article class="card">
+            <div class="card-icon"><Icon name="printer" size={20} /></div>
+            <h3>{proto.name}</h3>
+            <p>Example endpoint: <code>{proto.endpoint}</code></p>
+            <p>{proto.notes}</p>
+          </article>
+        ))}
+      </div>
+
+      <div class="prose" style="margin-top: 2rem;">
+        <h3>Customizable Go-template ZPL layouts</h3>
+        <p>
+          You can customize ZPL label templates using Go’s template syntax for <strong>items</strong>, <strong>products</strong>, and <strong>locations</strong>. Printed QR codes encode your configured <code>BASE_URL</code>, so scanning any printed label with your phone opens that exact item or storage location in Itemized.
+        </p>
+        <div class="callout">
+          <p>
+            <strong>Set <code>BASE_URL</code> before printing labels.</strong> If you print labels while running behind a reverse proxy, make sure <code>BASE_URL</code> points to your HTTPS domain (for example <code>https://itemized.example.com</code>) so scanned QR labels work reliably on mobile devices.
+          </p>
+        </div>
+        <div class="cta-row" style="margin-top: 1.5rem;">
+          <a class="btn btn-primary" href={NAV.selfHost}>
+            <span>Back to Self-Host Guide</span>
+            <Icon name="arrow-right" size={16} />
+          </a>
+          <a class="btn btn-secondary" href={NAV.install}>Install Mobile PWA</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

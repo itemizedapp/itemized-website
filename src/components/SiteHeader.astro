@@ -1,0 +1,68 @@
+---
+import Icon from './Icon.astro';
+import { NAV, PRIMARY_NAV, SITE } from '../lib/site';
+
+const currentPath = Astro.url.pathname;
+const isCurrent = (href: string) =>
+  href === '/' ? currentPath === '/' : currentPath === href || currentPath.startsWith(href);
+---
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href={NAV.home}>
+      <img src="/favicon.svg" width="28" height="28" alt="" />
+      <span>{SITE.name}</span>
+    </a>
+
+    <nav class="desktop-nav" aria-label="Primary">
+      {PRIMARY_NAV.map((item) => (
+        <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="header-actions">
+      <a class="btn btn-ghost" href={SITE.appRepo}>
+        <Icon name="star" size={16} />
+        <span>GitHub</span>
+      </a>
+      <a class="btn btn-primary" href={SITE.demo}>
+        <span>Try Live Demo</span>
+        <Icon name="arrow-right" size={16} />
+      </a>
+    </div>
+
+    <details class="nav-menu">
+      <summary aria-label="Toggle navigation menu">
+        <Icon name="menu" size={18} />
+        <span>Menu</span>
+      </summary>
+      <div class="nav-menu-panel">
+        <nav aria-label="Mobile navigation">
+          <ul>
+            {PRIMARY_NAV.map((item) => (
+              <li>
+                <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>
+                  {item.label}
+                </a>
+              </li>
+            ))}
+            <li class="menu-divider" aria-hidden="true"></li>
+            <li>
+              <a href={SITE.appRepo}>
+                <Icon name="star" size={16} />
+                <span>GitHub</span>
+              </a>
+            </li>
+            <li>
+              <a class="btn btn-primary" href={SITE.demo}>
+                <span>Try Live Demo</span>
+                <Icon name="arrow-right" size={16} />
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </details>
+  </div>
+</header>
