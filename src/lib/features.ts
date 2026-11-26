@@ -64,7 +64,7 @@ export const FEATURE_GROUPS: FeatureGroup[] = [
     items: [
       {
         title: 'Unified Scan / Action workflow',
-        summary: 'Scan a barcode or Itemized QR label to Purchase, Consume, Open, Transfer between locations, or run a Location Inventory Audit.',
+        summary: 'Scan a barcode or itemized QR label to Purchase, Consume, Open, Transfer between locations, or run a Location Inventory Audit.',
       },
       {
         title: 'OpenFoodFacts automatic lookup',
@@ -80,7 +80,7 @@ export const FEATURE_GROUPS: FeatureGroup[] = [
     id: 'label-printing',
     kicker: 'Labels',
     title: 'Direct LAN Zebra ZPL label printing',
-    lede: 'Print durable QR labels for containers, pantry bins, and freezer bags straight from Itemized to printers on your local network.',
+    lede: 'Print durable QR labels for containers, pantry bins, and freezer bags straight from itemized to printers on your local network.',
     icon: 'printer',
     items: [
       {
@@ -93,7 +93,7 @@ export const FEATURE_GROUPS: FeatureGroup[] = [
       },
       {
         title: 'QR codes linked to your instance',
-        summary: 'Printed QR labels encode your BASE_URL so scanning any container or shelf opens it directly in Itemized.',
+        summary: 'Printed QR labels encode your BASE_URL so scanning any container or shelf opens it directly in itemized.',
       },
     ],
   },

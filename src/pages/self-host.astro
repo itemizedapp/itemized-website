@@ -7,7 +7,7 @@ import { NAV, SITE } from '../lib/site';
 ---
 <Base
   title="Self-Host Quick Start"
-  description="Deploy Itemized with Docker Compose, Docker Run, or Unraid Community Apps, and configure HTTPS for mobile barcode scanning."
+  description="Deploy itemized with Docker Compose, Docker Run, or Unraid Community Apps, and configure HTTPS for mobile barcode scanning."
 >
   <header class="page-head">
     <div class="wrap">
@@ -30,7 +30,7 @@ import { NAV, SITE } from '../lib/site';
       <p class="kicker">Recommended</p>
       <h2 id="compose-title">Docker Compose</h2>
       <p>
-        Create a <code>docker-compose.yml</code> file and mount a persistent volume at <code>/data</code> where Itemized stores its SQLite WAL database (<code>/data/itemized.db</code>).
+        Create a <code>docker-compose.yml</code> file and mount a persistent volume at <code>/data</code> where itemized stores its SQLite WAL database (<code>/data/itemized.db</code>).
       </p>
       <CodeBlock label="docker-compose.yml" code={DOCKER_COMPOSE_SNIPPET} />
       <CodeBlock label="Start the container" code="docker compose up -d" />
@@ -82,7 +82,7 @@ import { NAV, SITE } from '../lib/site';
         </p>
       </div>
       <p>
-        To use live camera barcode scanning on phones and tablets, serve Itemized over <strong>HTTPS</strong> behind a reverse proxy such as <strong>Nginx Proxy Manager</strong>, <strong>Caddy</strong>, <strong>Traefik</strong>, <strong>SWAG</strong>, or <strong>Tailscale Serve</strong>.
+        To use live camera barcode scanning on phones and tablets, serve itemized over <strong>HTTPS</strong> behind a reverse proxy such as <strong>Nginx Proxy Manager</strong>, <strong>Caddy</strong>, <strong>Traefik</strong>, <strong>SWAG</strong>, or <strong>Tailscale Serve</strong>.
       </p>
       <p>When running behind a reverse proxy, configure two environment variables:</p>
       <ul>

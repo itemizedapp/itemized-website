@@ -24,14 +24,14 @@ export const ENV_VARS: EnvVar[] = [
   {
     name: 'PUID',
     defaultValue: '1000',
-    description: 'User ID for running Itemized and owning /data (99 in the Unraid template).',
+    description: 'User ID for running itemized and owning /data (99 in the Unraid template).',
     category: 'core',
     inAppEditable: false,
   },
   {
     name: 'PGID',
     defaultValue: '1000',
-    description: 'Group ID for running Itemized and owning /data (100 in the Unraid template).',
+    description: 'Group ID for running itemized and owning /data (100 in the Unraid template).',
     category: 'core',
     inAppEditable: false,
   },

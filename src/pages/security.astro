@@ -11,14 +11,14 @@ import { NAV, SITE } from '../lib/site';
       <p class="kicker">Security</p>
       <h1>Defense in depth for self-hosted instances.</h1>
       <p class="lede">
-        How Itemized handles authentication, container privileges, reverse proxies, and responsible vulnerability disclosure.
+        How itemized handles authentication, container privileges, reverse proxies, and responsible vulnerability disclosure.
       </p>
     </div>
   </header>
 
   <section class="section">
     <div class="wrap prose">
-      <h2>Security controls in Itemized</h2>
+      <h2>Security controls in itemized</h2>
       <ul>
         <li>
           <strong>Authentication &amp; roles:</strong> Supports local password authentication and optional OIDC SSO using Authorization Code flow with PKCE (tested with Authentik, Authelia, Pocket ID, and Keycloak). Accounts use <strong>Admin</strong> and <strong>Member</strong> roles, and <code>OIDC_FORCE=true</code> disables local password login completely.
@@ -30,7 +30,7 @@ import { NAV, SITE } from '../lib/site';
           <strong>Reverse proxy rate limiting:</strong> Set <code>TRUST_PROXY=true</code> when running behind a reverse proxy so rate limiting reads client IPs from <code>X-Forwarded-For</code> / <code>X-Real-IP</code> rather than the proxy address.
         </li>
         <li>
-          <strong>HTTPS for camera access:</strong> Serving Itemized over HTTPS protects credentials in transit and satisfies browser security requirements for mobile camera barcode scanning. See <a href={`${NAV.selfHost}#https`}>HTTPS &amp; Reverse Proxy</a>.
+          <strong>HTTPS for camera access:</strong> Serving itemized over HTTPS protects credentials in transit and satisfies browser security requirements for mobile camera barcode scanning. See <a href={`${NAV.selfHost}#https`}>HTTPS &amp; Reverse Proxy</a>.
         </li>
         <li>
           <strong>Sandboxed public demo mode:</strong> When <code>DEMO_MODE=true</code> is enabled, outbound printer, OIDC, and LLM calls are sandboxed, UPC lookups are rate-limited to 5/min, and sample data resets automatically on <code>DEMO_RESET_INTERVAL</code>.
@@ -39,7 +39,7 @@ import { NAV, SITE } from '../lib/site';
 
       <h2>Reporting a vulnerability</h2>
       <p>
-        If you discover a security vulnerability in Itemized, please report it privately using <a href={SITE.securityAdvisories}>GitHub Security Advisories</a> rather than opening a public issue.
+        If you discover a security vulnerability in itemized, please report it privately using <a href={SITE.securityAdvisories}>GitHub Security Advisories</a> rather than opening a public issue.
       </p>
       <p>
         Include steps to reproduce, the affected version or container digest, and any relevant configuration details so the issue can be verified and patched quickly.

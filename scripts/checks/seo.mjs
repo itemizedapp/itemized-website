@@ -29,11 +29,29 @@ for (const file of htmlFiles) {
   const ogTitle = doc.querySelector('meta[property="og:title"]')?.getAttribute('content')?.trim() ?? '';
   const ogDesc = doc.querySelector('meta[property="og:description"]')?.getAttribute('content')?.trim() ?? '';
   const ogImage = doc.querySelector('meta[property="og:image"]')?.getAttribute('content')?.trim() ?? '';
+  const ogSiteName = doc.querySelector('meta[property="og:site_name"]')?.getAttribute('content')?.trim() ?? '';
   const h1s = doc.querySelectorAll('h1');
 
   if (!title) errors.push(`${rel}: missing <title>`);
   if (!desc) errors.push(`${rel}: missing <meta name="description">`);
   if (h1s.length !== 1) errors.push(`${rel}: expected 1 <h1>, found ${h1s.length}`);
+
+  if (ogSiteName !== 'itemized') {
+    errors.push(`${rel}: expected og:site_name "itemized", found "${ogSiteName}"`);
+  }
+  for (const brandSpan of doc.querySelectorAll('.brand span')) {
+    const brandText = brandSpan.text.trim();
+    if (brandText !== 'itemized') {
+      errors.push(`${rel}: expected .brand wordmark "itemized", found "${brandText}"`);
+    }
+  }
+  for (const el of doc.querySelectorAll('body p, body li, body h1, body h2, body h3, body h4, body td, body th, body figcaption, body summary')) {
+    const text = el.text.replace(/\s+/g, ' ').trim();
+    const badCasing = text.match(/(?:[a-z0-9,’"”]|©\s*\d+)\s+Itemized\b/g);
+    if (badCasing) {
+      errors.push(`${rel}: non-sentence-start "Itemized" found (${badCasing.join(', ')})`);
+    }
+  }
 
   if (!is404) {
     if (titles.has(title)) {

@@ -29,14 +29,14 @@ const categories: { id: 'core' | 'oidc' | 'llm' | 'demo'; title: string; summary
 ---
 <Base
   title="Configuration & Label Printing"
-  description="Complete environment variable reference, OIDC SSO, optional AI barcode normalization, and direct LAN Zebra ZPL label printing setup for Itemized."
+  description="Complete environment variable reference, OIDC SSO, optional AI barcode normalization, and direct LAN Zebra ZPL label printing setup for itemized."
 >
   <header class="page-head">
     <div class="wrap">
       <p class="kicker">Reference</p>
       <h1>Configuration &amp; Label Printing</h1>
       <p class="lede">
-        Configure Itemized with environment variables at startup, or edit instance settings directly in the in-app <strong>Settings</strong> page after first-run setup.
+        Configure itemized with environment variables at startup, or edit instance settings directly in the in-app <strong>Settings</strong> page after first-run setup.
       </p>
       <nav class="jump-nav" aria-label="Configuration sections">
         <a href="#env-vars">Environment Variables</a>
@@ -115,7 +115,7 @@ const categories: { id: 'core' | 'oidc' | 'llm' | 'demo'; title: string; summary
       <div class="prose" style="margin-top: 2rem;">
         <h3>Customizable Go-template ZPL layouts</h3>
         <p>
-          You can customize ZPL label templates using Go’s template syntax for <strong>items</strong>, <strong>products</strong>, and <strong>locations</strong>. Printed QR codes encode your configured <code>BASE_URL</code>, so scanning any printed label with your phone opens that exact item or storage location in Itemized.
+          You can customize ZPL label templates using Go’s template syntax for <strong>items</strong>, <strong>products</strong>, and <strong>locations</strong>. Printed QR codes encode your configured <code>BASE_URL</code>, so scanning any printed label with your phone opens that exact item or storage location in itemized.
         </p>
         <div class="callout">
           <p>

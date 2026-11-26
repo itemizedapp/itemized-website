@@ -1,5 +1,5 @@
 export const SITE = {
-  name: 'Itemized',
+  name: 'itemized',
   tagline: 'Self-hosted household inventory management, expiration tracking, barcode scanning, and direct Zebra ZPL label printing.',
   url: 'https://itemizedapp.com',
   demo: 'https://demo.itemizedapp.com',
@@ -10,7 +10,7 @@ export const SITE = {
   unraidTemplate: 'https://github.com/itemizedapp/itemized/blob/main/unraid/itemized.xml',
   image: 'ghcr.io/itemizedapp/itemized:latest',
   ogImage: '/og-card.png',
-  ogAlt: 'Itemized — self-hosted household inventory management interface',
+  ogAlt: 'itemized — self-hosted household inventory management interface',
 } as const;
 
 export const NAV = {
