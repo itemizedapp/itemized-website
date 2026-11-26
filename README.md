@@ -33,3 +33,11 @@ Running `npm run build` outputs a self-contained static site into `dist/` with d
 
 - **Cloudflare Pages / Netlify**: Build command `npm run build`, publish directory `dist`.
 - **GitHub Pages**: Publish the `dist/` artifact via `actions/upload-pages-artifact` and `actions/deploy-pages`.
+
+## Security
+
+To report a security vulnerability, please see [SECURITY.md](SECURITY.md).
+
+## License
+
+itemized-website is licensed under the [MIT License](LICENSE).

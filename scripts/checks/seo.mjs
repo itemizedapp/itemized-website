@@ -45,11 +45,13 @@ for (const file of htmlFiles) {
       errors.push(`${rel}: expected .brand wordmark "itemized", found "${brandText}"`);
     }
   }
-  for (const el of doc.querySelectorAll('body p, body li, body h1, body h2, body h3, body h4, body td, body th, body figcaption, body summary')) {
-    const text = el.text.replace(/\s+/g, ' ').trim();
-    const badCasing = text.match(/(?:[a-z0-9,’"”]|©\s*\d+)\s+Itemized\b/g);
-    if (badCasing) {
-      errors.push(`${rel}: non-sentence-start "Itemized" found (${badCasing.join(', ')})`);
+  if (!rel.startsWith('docs/')) {
+    for (const el of doc.querySelectorAll('body p, body li, body h1, body h2, body h3, body h4, body td, body th, body figcaption, body summary')) {
+      const text = el.text.replace(/\s+/g, ' ').trim();
+      const badCasing = text.match(/(?:[a-z0-9,’"”]|©\s*\d+)\s+Itemized\b/g);
+      if (badCasing) {
+        errors.push(`${rel}: non-sentence-start "Itemized" found (${badCasing.join(', ')})`);
+      }
     }
   }
 

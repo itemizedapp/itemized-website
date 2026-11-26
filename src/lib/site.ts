@@ -19,6 +19,7 @@ export const NAV = {
   selfHost: '/self-host/',
   configuration: '/configuration/',
   install: '/install/',
+  docs: '/docs/',
   about: '/about/',
   security: '/security/',
   privacy: '/privacy/',
@@ -29,6 +30,7 @@ export const PRIMARY_NAV: readonly { label: string; href: string }[] = [
   { label: 'Self-Host', href: NAV.selfHost },
   { label: 'Configuration', href: NAV.configuration },
   { label: 'Install', href: NAV.install },
+  { label: 'Docs', href: NAV.docs },
 ];
 
 export const FOOTER_GROUPS: readonly { title: string; links: readonly { label: string; href: string }[] }[] = [
@@ -43,6 +45,7 @@ export const FOOTER_GROUPS: readonly { title: string; links: readonly { label: s
   {
     title: 'Setup',
     links: [
+      { label: 'Documentation', href: NAV.docs },
       { label: 'Self-host quick start', href: NAV.selfHost },
       { label: 'Configuration & printing', href: NAV.configuration },
       { label: 'HTTPS reverse proxy', href: `${NAV.selfHost}#https` },
