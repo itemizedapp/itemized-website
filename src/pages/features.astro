@@ -57,6 +57,38 @@ import { NAV, SITE } from '../lib/site';
             ))}
           </div>
         )}
+
+        {group.screenshots && group.screenshots.length === 1 && (
+          <figure class="shot-stage">
+            <img
+              src={group.screenshots[0].src}
+              alt={group.screenshots[0].alt}
+              width={group.screenshots[0].width}
+              height={group.screenshots[0].height}
+              loading="lazy"
+              decoding="async"
+            />
+            <figcaption>{group.screenshots[0].caption}</figcaption>
+          </figure>
+        )}
+
+        {group.screenshots && group.screenshots.length > 1 && (
+          <div class="shot-grid">
+            {group.screenshots.map((shot) => (
+              <figure class="shot-stage">
+                <img
+                  src={shot.src}
+                  alt={shot.alt}
+                  width={shot.width}
+                  height={shot.height}
+                  loading="lazy"
+                  decoding="async"
+                />
+                <figcaption>{shot.caption}</figcaption>
+              </figure>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   ))}

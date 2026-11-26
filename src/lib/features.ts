@@ -3,6 +3,14 @@ export interface FeatureItem {
   summary: string;
 }
 
+export interface FeatureScreenshot {
+  src: string;
+  alt: string;
+  caption: string;
+  width: number;
+  height: number;
+}
+
 export interface FeatureGroup {
   id: string;
   kicker: string;
@@ -10,6 +18,7 @@ export interface FeatureGroup {
   lede: string;
   icon: string;
   items: FeatureItem[];
+  screenshots?: FeatureScreenshot[];
 }
 
 export const FEATURE_GROUPS: FeatureGroup[] = [
@@ -33,6 +42,22 @@ export const FEATURE_GROUPS: FeatureGroup[] = [
         summary: 'Adjust expiration dates automatically when you open, freeze, or thaw an item, backed by rolling-average consumption history.',
       },
     ],
+    screenshots: [
+      {
+        src: '/docs/assets/due-soon.png',
+        alt: 'itemized Due Soon view highlighting upcoming and overdue items with remaining days and quick actions',
+        caption: 'Due Soon view surfacing items approaching or past their best-by dates.',
+        width: 2560,
+        height: 1600,
+      },
+      {
+        src: '/docs/assets/locations.png',
+        alt: 'itemized Locations view showing nested storage hierarchies across kitchen, pantry, refrigerator, and freezer',
+        caption: 'Nested storage locations organized from rooms down to individual shelves and drawers.',
+        width: 2560,
+        height: 1600,
+      },
+    ],
   },
   {
     id: 'shopping-list',
@@ -52,6 +77,15 @@ export const FEATURE_GROUPS: FeatureGroup[] = [
       {
         title: 'Clears automatically on restock',
         summary: 'Scan or purchase items as you unpack groceries and they clear from the shopping list as stock is replenished.',
+      },
+    ],
+    screenshots: [
+      {
+        src: '/docs/assets/shopping-list.png',
+        alt: 'itemized Shopping List showing automatically populated low-stock items alongside manual additions',
+        caption: 'Automatic shopping list populated from minimum stock thresholds and quick manual additions.',
+        width: 2560,
+        height: 1600,
       },
     ],
   },
@@ -75,6 +109,15 @@ export const FEATURE_GROUPS: FeatureGroup[] = [
         summary: 'Connect Anthropic, OpenAI, Gemini, or a local Ollama endpoint to normalize messy UPC titles and suggest categories on your terms.',
       },
     ],
+    screenshots: [
+      {
+        src: '/docs/assets/scanner.png',
+        alt: 'itemized Scan and Action workflow for camera and USB/Bluetooth barcode scanning with Purchase, Consume, Open, Transfer, and Audit modes',
+        caption: 'Unified Scan / Action workflow supporting phone cameras and USB/Bluetooth barcode scanners.',
+        width: 2560,
+        height: 1600,
+      },
+    ],
   },
   {
     id: 'label-printing',
@@ -96,6 +139,15 @@ export const FEATURE_GROUPS: FeatureGroup[] = [
         summary: 'Printed QR labels encode your BASE_URL so scanning any container or shelf opens it directly in itemized.',
       },
     ],
+    screenshots: [
+      {
+        src: '/docs/assets/settings-printers.png',
+        alt: 'itemized Printer Settings showing direct LAN Zebra ZSB IPP and Raw TCP ZPL printer configuration and Go-template label layouts',
+        caption: 'Direct LAN Zebra ZPL printer setup and customizable Go-template label layouts.',
+        width: 2560,
+        height: 1600,
+      },
+    ],
   },
   {
     id: 'search-and-shortcuts',
@@ -111,6 +163,15 @@ export const FEATURE_GROUPS: FeatureGroup[] = [
       {
         title: 'Gmail-style desktop shortcuts',
         summary: 'Jump straight to views and actions with g i, g s, g d, g o, g a, n to create, and ? to open the shortcut reference.',
+      },
+    ],
+    screenshots: [
+      {
+        src: '/docs/assets/search.png',
+        alt: 'itemized instant search results showing typo-tolerant SQLite FTS5 matching across household products and stock',
+        caption: 'Instant typo-tolerant search backed by SQLite FTS5 trigram indexing.',
+        width: 2560,
+        height: 1600,
       },
     ],
   },
@@ -132,6 +193,15 @@ export const FEATURE_GROUPS: FeatureGroup[] = [
       {
         title: 'Auto-provisioning and force-OIDC',
         summary: 'Automatically create Member accounts on first OIDC login and optionally disable local password sign-in entirely.',
+      },
+    ],
+    screenshots: [
+      {
+        src: '/docs/assets/settings.png',
+        alt: 'itemized Settings page displaying household instance configuration, user management, and integration controls',
+        caption: 'Instance settings for household accounts, authentication, and integrations.',
+        width: 2560,
+        height: 1600,
       },
     ],
   },

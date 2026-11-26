@@ -14,7 +14,7 @@ All marketing copy SHALL describe only shipped features verified in `itemizedapp
 - **THEN** every described capability corresponds to a shipped feature of Itemized (locations, categories, expiration tracking, shopping list, barcode/QR scanning, OpenFoodFacts + optional LLM lookup, Zebra ZSB IPP / Raw TCP ZPL printing, FTS5 search, keyboard shortcuts, household accounts & OIDC SSO, single Go binary + SQLite)
 
 ### Requirement: Home page narrative and calls to action
-The Home page (`/`) SHALL present a clear above-the-fold value proposition, primary and secondary CTAs, a real product screenshot stage, daily workflow highlights, self-hosting ownership pillars, and entry paths to get started.
+The Home page (`/`) SHALL present a clear above-the-fold value proposition, primary and secondary CTAs, a real product screenshot stage sourced from the fetched docs bundle, daily workflow highlights, self-hosting ownership pillars, and entry paths to get started.
 
 #### Scenario: First visit hero and live demo CTA
 - **WHEN** a visitor lands on `/`
@@ -22,7 +22,7 @@ The Home page (`/`) SHALL present a clear above-the-fold value proposition, prim
 
 #### Scenario: Product screenshot stage
 - **WHEN** a visitor views the hero stage on `/`
-- **THEN** a crisp, framed screenshot of the real Itemized inventory interface is rendered with descriptive alt text and responsive image sizing
+- **THEN** a crisp, framed screenshot of the real Itemized inventory interface is rendered from `/docs/assets/inventory.png` with descriptive alt text, explicit intrinsic dimensions, eager high-priority loading, and responsive sizing, with no manually duplicated inventory screenshot committed in `src/assets/`
 
 #### Scenario: Core story sections
 - **WHEN** a visitor scrolls through `/`
@@ -37,7 +37,7 @@ The Home page (`/`) SHALL present a clear above-the-fold value proposition, prim
 - **THEN** JSON-LD structured data declares `WebSite`, `Organization`, and `SoftwareApplication` entities for Itemized with its repository URL, live demo/install links, and free self-hosted offer
 
 ### Requirement: Grouped Features page
-The Features page (`/features/`) SHALL organize all shipped Itemized capabilities into clear, scannable groups with anchor links and concrete details.
+The Features page (`/features/`) SHALL organize all shipped Itemized capabilities into clear, scannable groups with anchor links, concrete details, and framed screenshots sourced from `/docs/assets/` for each UI-backed feature group.
 
 #### Scenario: Browsing feature groups
 - **WHEN** a visitor navigates to `/features/`
@@ -49,3 +49,7 @@ The Features page (`/features/`) SHALL organize all shipped Itemized capabilitie
   - Instant Search & Keyboard Shortcuts (SQLite FTS5 trigram typo-tolerant search, Gmail-style shortcuts `g i`, `g s`, `g d`, `g o`, `g a`, `n`, `?`)
   - Household Accounts & SSO (Admin/Member roles, local password auth, OIDC SSO with Authentik/Authelia/Pocket ID/Keycloak and auto-provisioning)
   - Zero-Dependency Self-Hosting (single Go binary, embedded React SPA, single SQLite WAL database, `linux/amd64` and `linux/arm64` containers, Unraid template)
+
+#### Scenario: Viewing docs-sourced feature screenshots
+- **WHEN** a visitor scrolls through the UI-backed feature groups on `/features/`
+- **THEN** each visual feature group renders framed, captioned screenshot(s) directly from `/docs/assets/` (`due-soon.png` and `locations.png` for inventory/expiration, `shopping-list.png` for restocking, `scanner.png` for scanning, `settings-printers.png` for label printing, `search.png` for search/shortcuts, and `settings.png` for household/SSO) with descriptive alt text, explicit dimensions, lazy loading, and zero horizontal overflow across mobile, tablet, and desktop widths

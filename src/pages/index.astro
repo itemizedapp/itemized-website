@@ -1,6 +1,4 @@
 ---
-import { Image } from 'astro:assets';
-import inventoryShot from '../assets/screenshot-inventory.jpg';
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
 import JsonLd from '../components/JsonLd.astro';
@@ -163,13 +161,14 @@ const nextSteps = [
 
       <div class="lp-stage">
         <figure>
-          <Image
-            src={inventoryShot}
+          <img
+            src="/docs/assets/inventory.png"
             alt="itemized web application showing household inventory stock levels, nested storage locations, categories, and expiration status"
-            widths={[640, 960, 1280]}
-            sizes="(min-width: 1152px) 1104px, calc(100vw - 32px)"
+            width="2560"
+            height="1600"
             loading="eager"
             fetchpriority="high"
+            decoding="async"
           />
           <figcaption>
             Inventory overview with nested locations, stock counts, due-soon indicators, and instant typo-tolerant search.
