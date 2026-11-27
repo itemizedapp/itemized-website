@@ -45,6 +45,19 @@ import { NAV, SITE } from '../lib/site';
           ))}
         </div>
 
+        {group.id === 'label-printing' && (
+          <div class="cta-row" style="margin-top: 1.5rem;">
+            <a class="btn btn-secondary" href={`${NAV.configuration}#printing`}>
+              <span>Supported Zebra printers &amp; setup</span>
+              <Icon name="arrow-right" size={15} />
+            </a>
+            <a class="btn btn-ghost" href={SITE.zebraZsb} target="_blank" rel="noopener noreferrer">
+              <span>Zebra Small Business / ZSB</span>
+              <Icon name="external-link" size={15} />
+            </a>
+          </div>
+        )}
+
         {group.id === 'search-and-shortcuts' && (
           <div class="shortcut-grid" aria-label="Desktop keyboard shortcuts">
             {KEYBOARD_SHORTCUTS.map((sc) => (

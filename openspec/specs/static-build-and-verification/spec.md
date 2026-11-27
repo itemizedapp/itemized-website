@@ -14,7 +14,7 @@ The project SHALL build to a self-contained static `dist/` directory that can be
 - **THEN** `dist/` contains clean directory-based HTML pages (`/<route>/index.html`), `/404.html`, `/robots.txt`, `/sitemap-index.xml`, self-hosted assets (favicon, icons, screenshots, stylesheets), and zero server-side runtime dependencies
 
 ### Requirement: Automated post-build HTML, link, and SEO verification
-The project SHALL provide automated check scripts that inspect the built `dist/` output and fail on broken internal links, missing SEO metadata, or unexpected third-party scripts.
+The project SHALL provide automated check scripts that inspect the built `dist/` output and fail on broken internal links, missing SEO metadata, unexpected third-party scripts, or prohibited em dash characters in marketing website pages.
 
 #### Scenario: Internal link integrity check
 - **WHEN** the post-build link check runs against `dist/`
@@ -27,6 +27,10 @@ The project SHALL provide automated check scripts that inspect the built `dist/`
 #### Scenario: Script hygiene check
 - **WHEN** the post-build script check runs against `dist/`
 - **THEN** no external third-party `<script src="http...">` tags exist in the built HTML
+
+#### Scenario: Em dash prohibition check
+- **WHEN** the post-build SEO and copy hygiene check runs against `dist/`
+- **THEN** every built marketing website HTML file (excluding `/docs/`) contains zero em dash characters (`—`, U+2014) or em dash HTML entities (`&mdash;`, `&#8212;`, `&#x2014;`) in titles, meta tags, or rendered body content, failing with the offending file path if any are found
 
 ### Requirement: Responsive and no-JS browser verification
 The project SHALL include automated verification confirming pages render without horizontal overflow across mobile/tablet/desktop widths, remain navigable with JavaScript disabled, and pass automated accessibility checks.

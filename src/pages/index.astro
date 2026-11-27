@@ -4,11 +4,39 @@ import Icon from '../components/Icon.astro';
 import JsonLd from '../components/JsonLd.astro';
 import { NAV, SITE } from '../lib/site';
 
+const workflowSteps = [
+  {
+    step: 1,
+    title: 'Scan purchases',
+    body: 'Scan retail barcodes with your phone camera (PWA) or a USB/Bluetooth scanner as you unpack groceries.',
+  },
+  {
+    step: 2,
+    title: 'Look up on OpenFoodFacts',
+    body: 'Automatically queries OpenFoodFacts to pull product details for each scanned barcode.',
+  },
+  {
+    step: 3,
+    title: 'Standardize & merge with AI',
+    body: 'Optional LLM integration standardizes messy product names and merges items with your existing records.',
+  },
+  {
+    step: 4,
+    title: 'Print a label or use the UPC',
+    body: 'Have a Zebra label printer? Print an individual barcode label. No printer? Track items directly with their existing UPC barcode.',
+  },
+  {
+    step: 5,
+    title: 'Track location & expiration',
+    body: 'Record where each item is stored and when it is set to expire so food gets used before it goes to waste.',
+  },
+];
+
 const dailyWorkflows = [
   {
     icon: 'package',
     title: 'Track stock and expiration dates',
-    body: 'Organize items into nested locations like Kitchen → Refrigerator → Crisper Drawer or Garage → Chest Freezer. Due-soon and overdue items surface automatically with smart rules for opening, freezing, and thawing.',
+    body: 'Organize items into nested locations like Kitchen → Refrigerator → Crisper Drawer or Garage → Chest Freezer. Due-soon and overdue alerts surface food before it spoils, backed by smart rules for opening, freezing, and thawing.',
     href: `${NAV.features}#inventory-and-expiration`,
     linkLabel: 'See inventory tracking',
   },
@@ -32,9 +60,9 @@ const craftHighlights = [
   {
     icon: 'printer',
     title: 'Direct LAN Zebra ZPL label printing',
-    body: 'Print QR labels directly to Zebra ZSB (IPP) and Raw TCP (:9100) ZPL printers on your local network—no companion print server needed—with customizable Go-template ZPL layouts for items, products, and locations.',
+    body: 'Print individual barcode and QR labels directly to networked Raw TCP (:9100) Zebra ZPL printers like the ZD411, ZD421, ZD621, or legacy GK420d, as well as Zebra ZSB (IPP) printers, with no companion print server needed. Prefer not to print labels? Track items with their existing UPC barcodes.',
     href: `${NAV.configuration}#printing`,
-    linkLabel: 'Label printing setup',
+    linkLabel: 'Supported printers & setup',
   },
   {
     icon: 'search',
@@ -100,9 +128,9 @@ const nextSteps = [
 ];
 ---
 <Base
-  title="itemized — Self-hosted household inventory management"
+  title="itemized | Self-hosted household inventory to reduce food waste"
   bareTitle
-  description="Self-hosted household inventory management, expiration tracking, barcode scanning, and direct Zebra ZPL label printing in a single Go binary."
+  description="Self-hosted household inventory management on a mission to reduce food waste, with expiration tracking, OpenFoodFacts + LLM barcode scanning, and direct Zebra ZPL label printing in a single Go binary."
 >
   <JsonLd
     slot="head"
@@ -143,9 +171,9 @@ const nextSteps = [
     <div class="wrap">
       <div class="lp-hero-text">
         <p class="kicker">Self-hosted household inventory</p>
-        <h1 id="hero-title">Know what is in your pantry, fridge, and freezer.</h1>
+        <h1 id="hero-title">Know what is in your pantry, fridge, and freezer, and reduce food waste.</h1>
         <p class="lp-lede">
-          Itemized is a self-hosted home inventory system with expiration tracking, automatic shopping lists, mobile and USB barcode scanning, and direct LAN Zebra ZPL label printing—all in a single Go binary.
+          Itemized is a self-hosted home inventory system on a mission to reduce household food waste. Scan purchases, track storage locations and expiration dates, keep an automatic shopping list, and optionally print Zebra ZPL labels, all in a single Go binary.
         </p>
         <div class="cta-row">
           <a class="btn btn-primary btn-large" href={SITE.demo}>
@@ -155,7 +183,7 @@ const nextSteps = [
           <a class="btn btn-secondary btn-large" href={NAV.selfHost}>Self-Host Guide</a>
         </div>
         <p class="lp-note">
-          No login required on the live demo — sample household data resets automatically every hour.
+          No login required on the live demo. Sample household data resets automatically every hour.
         </p>
       </div>
 
@@ -175,6 +203,27 @@ const nextSteps = [
           </figcaption>
         </figure>
       </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="how-it-works" aria-labelledby="workflow-title">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="kicker">How it works</p>
+        <h2 id="workflow-title">From grocery bag to pantry tracking in five steps</h2>
+        <p class="lede">
+          Unpacking groceries takes seconds, and every item stays visible until it is used, not forgotten in the back of the fridge.
+        </p>
+      </div>
+      <ol class="workflow-steps">
+        {workflowSteps.map((item) => (
+          <li class="workflow-step">
+            <span class="step-num" aria-hidden="true">{item.step}</span>
+            <h3>{item.title}</h3>
+            <p>{item.body}</p>
+          </li>
+        ))}
+      </ol>
     </div>
   </section>
 

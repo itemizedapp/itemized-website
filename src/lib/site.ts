@@ -1,6 +1,6 @@
 export const SITE = {
   name: 'itemized',
-  tagline: 'Self-hosted household inventory management, expiration tracking, barcode scanning, and direct Zebra ZPL label printing.',
+  tagline: 'Self-hosted household inventory management on a mission to reduce food waste, with expiration tracking, barcode scanning, and direct Zebra ZPL label printing.',
   url: 'https://itemizedapp.com',
   demo: 'https://demo.itemizedapp.com',
   appRepo: 'https://github.com/itemizedapp/itemized',
@@ -8,9 +8,10 @@ export const SITE = {
   issues: 'https://github.com/itemizedapp/itemized/issues',
   securityAdvisories: 'https://github.com/itemizedapp/itemized/security/advisories/new',
   unraidTemplate: 'https://github.com/itemizedapp/itemized/blob/main/unraid/itemized.xml',
+  zebraZsb: 'https://www.zebra.com/content/smb/us/en.html',
   image: 'ghcr.io/itemizedapp/itemized:latest',
   ogImage: '/og-card.png',
-  ogAlt: 'itemized — self-hosted household inventory management interface',
+  ogAlt: 'itemized: self-hosted household inventory management interface',
 } as const;
 
 export const NAV = {

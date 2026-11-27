@@ -21,7 +21,8 @@ const titles = new Map();
 for (const file of htmlFiles) {
   const rel = path.relative(distDir, file);
   const is404 = rel === '404.html';
-  const doc = parse(fs.readFileSync(file, 'utf8'));
+  const rawHtml = fs.readFileSync(file, 'utf8');
+  const doc = parse(rawHtml);
 
   const title = doc.querySelector('title')?.text?.trim() ?? '';
   const desc = doc.querySelector('meta[name="description"]')?.getAttribute('content')?.trim() ?? '';
@@ -46,6 +47,10 @@ for (const file of htmlFiles) {
     }
   }
   if (!rel.startsWith('docs/')) {
+    const emDashMatches = rawHtml.match(/\u2014|&mdash;|&#8212;|&#x2014;/gi);
+    if (emDashMatches) {
+      errors.push(`${rel}: prohibited em dash found (${emDashMatches.length} occurrence${emDashMatches.length === 1 ? '' : 's'})`);
+    }
     for (const el of doc.querySelectorAll('body p, body li, body h1, body h2, body h3, body h4, body td, body th, body figcaption, body summary')) {
       const text = el.text.replace(/\s+/g, ' ').trim();
       const badCasing = text.match(/(?:[a-z0-9,’"”]|©\s*\d+)\s+Itemized\b/g);

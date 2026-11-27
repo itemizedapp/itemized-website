@@ -1,3 +1,5 @@
+import { SITE } from './site';
+
 export interface EnvVar {
   name: string;
   defaultValue: string;
@@ -58,14 +60,14 @@ export const ENV_VARS: EnvVar[] = [
   },
   {
     name: 'OIDC_CLIENT_ID',
-    defaultValue: '—',
+    defaultValue: '(none)',
     description: 'Client ID registered with your OIDC identity provider.',
     category: 'oidc',
     inAppEditable: true,
   },
   {
     name: 'OIDC_CLIENT_SECRET',
-    defaultValue: '—',
+    defaultValue: '(none)',
     description: 'Client secret for your OIDC identity provider.',
     category: 'oidc',
     inAppEditable: true,
@@ -93,21 +95,21 @@ export const ENV_VARS: EnvVar[] = [
   },
   {
     name: 'LLM_MODEL',
-    defaultValue: '—',
+    defaultValue: '(none)',
     description: 'Model identifier for the configured LLM provider.',
     category: 'llm',
     inAppEditable: true,
   },
   {
     name: 'LLM_BASE_URL',
-    defaultValue: '—',
+    defaultValue: '(none)',
     description: 'Custom API endpoint for openai-compatible servers (for example http://ollama:11434/v1).',
     category: 'llm',
     inAppEditable: true,
   },
   {
     name: 'LLM_API_KEY',
-    defaultValue: '—',
+    defaultValue: '(none)',
     description: 'API key for the selected LLM provider (omit if your local endpoint does not require one).',
     category: 'llm',
     inAppEditable: true,
@@ -152,15 +154,42 @@ export const DOCKER_RUN_SNIPPET = `docker run -d \\
   -e TZ=America/New_York \\
   ghcr.io/itemizedapp/itemized:latest`;
 
-export const PRINTER_PROTOCOLS = [
+export interface PrinterProtocol {
+  name: string;
+  badge?: string;
+  endpoint: string;
+  notes: string;
+  examples: readonly string[];
+  link?: {
+    label: string;
+    href: string;
+  };
+}
+
+export const PRINTER_PROTOCOLS: readonly PrinterProtocol[] = [
   {
     name: 'Zebra ZSB Series (IPP)',
+    badge: 'Most affordable option',
     endpoint: 'http://192.168.1.50:631/ipp/print',
-    notes: 'Connects directly over Internet Printing Protocol on your LAN. Works out of the box with Docker bridge networking.',
+    notes: 'The lowest-cost way to start printing individual barcode labels. Connects directly over Internet Printing Protocol on your LAN and works out of the box with Docker bridge networking.',
+    examples: [
+      'Zebra ZSB-DP12 (2-inch wireless thermal printer)',
+      'Zebra ZSB-DP14 (4-inch wireless thermal printer)',
+    ],
+    link: {
+      label: 'Explore Zebra ZSB Series',
+      href: SITE.zebraZsb,
+    },
   },
   {
-    name: 'Raw TCP ZPL Printers',
+    name: 'Networked Zebra ZPL Printers (Raw TCP :9100)',
     endpoint: '192.168.1.50:9100',
-    notes: 'Sends raw ZPL commands directly to TCP port 9100 on network-attached Zebra thermal label printers without a companion print server.',
+    notes: 'Sends raw ZPL commands directly to TCP port 9100 on any Ethernet or Wi-Fi Zebra thermal printer without a companion print server.',
+    examples: [
+      'Zebra ZD411, ZD421, and ZD621 (Ethernet or Wi-Fi)',
+      'Zebra ZD220 and ZD230 (networked models)',
+      'Zebra GK420d and GX420d (legacy networked models)',
+      'Zebra ZT231 (networked industrial ZPL)',
+    ],
   },
-] as const;
+];

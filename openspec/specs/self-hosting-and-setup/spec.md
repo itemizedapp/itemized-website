@@ -22,7 +22,7 @@ The Self-Host page (`/self-host/`) SHALL provide copy-ready deployment instructi
 - **THEN** the page clearly explains that mobile browsers disable camera APIs on plain `http://` LAN URLs, lists common reverse proxies (Nginx Proxy Manager, Caddy, Traefik, SWAG, Tailscale Serve), and highlights setting `TRUST_PROXY=true` and `BASE_URL=https://...`
 
 ### Requirement: Configuration and Label Printing reference page
-The Configuration page (`/configuration/`) SHALL document all supported environment variables, OIDC SSO options, optional LLM UPC normalization settings, demo mode settings, and direct LAN Zebra label printing setup.
+The Configuration page (`/configuration/`) SHALL document all supported environment variables, OIDC SSO options, optional LLM UPC normalization settings, demo mode settings, and direct LAN Zebra label printing setup including supported printer guidance.
 
 #### Scenario: Environment variable reference
 - **WHEN** an administrator visits `/configuration/`
@@ -30,7 +30,11 @@ The Configuration page (`/configuration/`) SHALL document all supported environm
 
 #### Scenario: Direct LAN Zebra label printing guide
 - **WHEN** a user looks up label printing on `/configuration/`
-- **THEN** the page explains both supported direct LAN protocols—Zebra ZSB via IPP (`http://<printer-ip>:631/ipp/print`) and Raw TCP ZPL (`<printer-ip>:9100`)—along with customizable Go-template ZPL layouts for items, products, and locations, and notes that no companion print server is required
+- **THEN** the page explains both supported direct LAN protocols—Zebra ZSB via IPP (`http://<printer-ip>:631/ipp/print`) and Raw TCP ZPL (`<printer-ip>:9100`)—along with customizable Go-template ZPL layouts for items, products, and locations, notes that no companion print server is required, and clarifies that a label printer is optional because items can also be tracked using their existing UPC barcodes
+
+#### Scenario: Supported Zebra label printers reference
+- **WHEN** a user evaluates which label printer to buy or connect on `/configuration/#printing`
+- **THEN** the page leads with networked Zebra printers that support Raw TCP ZPL over port `9100` as the recommended option, lists concrete examples (such as ZD411, ZD421, ZD621, networked ZD220/ZD230, legacy networked GK420d/GX420d, and ZT231), notes that any networked Zebra printer speaking ZPL over TCP port `9100` is supported, and mentions the **Zebra ZSB Series** (e.g., ZSB-DP12 / ZSB-DP14) secondarily as discontinued by Zebra yet still supported over IPP with an external link to `https://www.zebra.com/content/smb/us/en.html`
 
 ### Requirement: Mobile PWA and Install page
 The Install page (`/install/`) SHALL guide users through installing Itemized as a Progressive Web App on iOS, Android, and desktop browsers, showcase the installed mobile interface using the docs-sourced mobile screenshot, and explain mobile camera scanning prerequisites.

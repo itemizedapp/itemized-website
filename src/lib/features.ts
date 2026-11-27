@@ -26,7 +26,7 @@ export const FEATURE_GROUPS: FeatureGroup[] = [
     id: 'inventory-and-expiration',
     kicker: 'Inventory',
     title: 'Stock, nested locations, and expiration tracking',
-    lede: 'Know what you have, where it sits, and what needs to be used next—across every pantry shelf, fridge drawer, and chest freezer.',
+    lede: 'Know what you have, where it sits, and what needs to be used next across every pantry shelf, fridge drawer, and chest freezer.',
     icon: 'package',
     items: [
       {
@@ -35,7 +35,7 @@ export const FEATURE_GROUPS: FeatureGroup[] = [
       },
       {
         title: 'Due soon and overdue alerts',
-        summary: 'Items approaching or past their best-by date surface automatically so food and supplies get used before they spoil.',
+        summary: 'Items approaching or past their best-by date surface automatically so food gets eaten before it spoils and goes to waste.',
       },
       {
         title: 'Smart due-date rules',
@@ -98,15 +98,15 @@ export const FEATURE_GROUPS: FeatureGroup[] = [
     items: [
       {
         title: 'Unified Scan / Action workflow',
-        summary: 'Scan a barcode or itemized QR label to Purchase, Consume, Open, Transfer between locations, or run a Location Inventory Audit.',
+        summary: 'Scan a retail UPC barcode or a printed itemized label to Purchase, Consume, Open, Transfer between locations, or run a Location Inventory Audit, with no label printer required to track items.',
       },
       {
         title: 'OpenFoodFacts automatic lookup',
         summary: 'Unknown retail barcodes are looked up automatically against OpenFoodFacts to populate product details.',
       },
       {
-        title: 'Optional AI naming and categorization',
-        summary: 'Connect Anthropic, OpenAI, Gemini, or a local Ollama endpoint to normalize messy UPC titles and suggest categories on your terms.',
+        title: 'Optional AI naming and record merging',
+        summary: 'Connect Anthropic, OpenAI, Gemini, or a local Ollama endpoint to standardize messy retail product names, categorize items, and merge them with your existing records.',
       },
     ],
     screenshots: [
@@ -127,12 +127,12 @@ export const FEATURE_GROUPS: FeatureGroup[] = [
     icon: 'printer',
     items: [
       {
-        title: 'Zebra ZSB (IPP) and Raw TCP (:9100)',
-        summary: 'Talks directly to Zebra ZSB printers over IPP and standard networked ZPL printers on TCP port 9100—no companion print server required.',
+        title: 'Raw TCP (:9100) ZPL and Zebra ZSB (IPP)',
+        summary: 'Connect directly to networked Zebra ZPL printers on TCP port 9100 (such as ZD411, ZD421, ZD621, networked ZD220/ZD230, or legacy GK420d/GX420d) as well as Zebra ZSB printers over IPP, with no companion print server required.',
       },
       {
-        title: 'Customizable Go-template ZPL layouts',
-        summary: 'Tailor label layouts for individual items, products, and storage locations using Go templates.',
+        title: 'Individual labels or existing UPCs',
+        summary: 'Print individual barcode and QR labels with customizable Go-template ZPL layouts for items, products, and locations, or skip the printer and track stock with existing retail UPC barcodes.',
       },
       {
         title: 'QR codes linked to your instance',

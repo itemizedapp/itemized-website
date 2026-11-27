@@ -51,7 +51,7 @@ const categories: { id: 'core' | 'oidc' | 'llm' | 'demo'; title: string; summary
         <p class="kicker">Environment</p>
         <h2 id="env-title">Environment variables</h2>
         <p class="lede">
-          All instance settings—except <code>PORT</code>, <code>DB_PATH</code>, <code>PUID</code>/<code>PGID</code>, <code>TRUST_PROXY</code>, and <code>DEMO_*</code>—can also be updated in <strong>Settings</strong> after setup.
+          All instance settings (except <code>PORT</code>, <code>DB_PATH</code>, <code>PUID</code>/<code>PGID</code>, <code>TRUST_PROXY</code>, and <code>DEMO_*</code>) can also be updated in <strong>Settings</strong> after setup.
         </p>
       </div>
 
@@ -104,15 +104,36 @@ const categories: { id: 'core' | 'oidc' | 'llm' | 'demo'; title: string; summary
       <div class="grid-2">
         {PRINTER_PROTOCOLS.map((proto) => (
           <article class="card">
-            <div class="card-icon"><Icon name="printer" size={20} /></div>
+            <div class="card-head-row">
+              <div class="card-icon" style="margin-bottom: 0;"><Icon name="printer" size={20} /></div>
+              {proto.badge && <span class="badge">{proto.badge}</span>}
+            </div>
             <h3>{proto.name}</h3>
             <p>Example endpoint: <code>{proto.endpoint}</code></p>
             <p>{proto.notes}</p>
+            <ul class="printer-examples">
+              {proto.examples.map((model) => (
+                <li>{model}</li>
+              ))}
+            </ul>
+            {proto.link && (
+              <a class="card-link" href={proto.link.href} target="_blank" rel="noopener noreferrer">
+                <span>{proto.link.label}</span>
+                <Icon name="external-link" size={15} />
+              </a>
+            )}
           </article>
         ))}
       </div>
 
       <div class="prose" style="margin-top: 2rem;">
+        <h3>Choosing a printer (or tracking without one)</h3>
+        <p>
+          If you want to print individual barcode labels for each item, the <a href={PRINTER_PROTOCOLS[0].link!.href} target="_blank" rel="noopener noreferrer">Zebra ZSB Series</a> is the most affordable entry point and connects over IPP on your local network. If you already own or prefer a classic Zebra thermal label printer, any networked (Ethernet or Wi-Fi) Zebra model that speaks ZPL over TCP port <code>9100</code> works directly with itemized, including the <strong>ZD411</strong>, <strong>ZD421</strong>, <strong>ZD621</strong>, networked <strong>ZD220/ZD230</strong>, legacy networked <strong>GK420d/GX420d</strong>, and industrial <strong>ZT231</strong>.
+        </p>
+        <p>
+          <strong>No label printer? No problem.</strong> Printing individual item labels is optional. You can scan and track groceries directly using their existing retail UPC barcodes.
+        </p>
         <h3>Customizable Go-template ZPL layouts</h3>
         <p>
           You can customize ZPL label templates using Go’s template syntax for <strong>items</strong>, <strong>products</strong>, and <strong>locations</strong>. Printed QR codes encode your configured <code>BASE_URL</code>, so scanning any printed label with your phone opens that exact item or storage location in itemized.
