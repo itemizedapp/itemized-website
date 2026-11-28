@@ -34,7 +34,8 @@ import { NAV, SITE } from '../lib/site';
         <li><strong>OpenFoodFacts barcode lookup:</strong> Triggered when you scan an unknown retail barcode to look up product metadata.</li>
         <li><strong>Optional AI/LLM normalization:</strong> Sent only to the provider you explicitly configure via <code>LLM_PROVIDER</code> (including a local Ollama endpoint on your own LAN).</li>
         <li><strong>Optional OIDC SSO:</strong> Communicates with the identity provider you configure via <code>OIDC_ISSUER</code>.</li>
-        <li><strong>Direct LAN printing:</strong> Sends print jobs only to the local Zebra IPP or Raw TCP printer address you configure.</li>
+        <li><strong>Optional Web Push notifications:</strong> Sends encrypted daily digest payloads directly to the browser push endpoint of devices you enroll in <strong>Settings -&gt; Notifications</strong> using standard VAPID keys, with no third-party push service account required.</li>
+        <li><strong>Direct LAN printing:</strong> Sends print jobs only to the local network thermal or CUPS/AirPrint printer address you configure (Browser Print / PDF stays entirely local in your browser).</li>
       </ul>
 
       <h2>The public live demo</h2>

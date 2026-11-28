@@ -6,7 +6,7 @@ import { NAV, SITE } from '../lib/site';
 ---
 <Base
   title="Features"
-  description="Every shipped feature in itemized: nested locations, expiration rules, automatic shopping list, barcode scanning, Zebra ZPL label printing, FTS5 search, and OIDC SSO."
+  description="Every shipped feature in itemized: nested locations, expiration rules, automatic shopping list, barcode and QR scanning, universal label printing with a visual label designer, Web Push digests, Home Assistant API, FTS5 search, and OIDC SSO."
 >
   <header class="page-head">
     <div class="wrap">
@@ -48,12 +48,8 @@ import { NAV, SITE } from '../lib/site';
         {group.id === 'label-printing' && (
           <div class="cta-row" style="margin-top: 1.5rem;">
             <a class="btn btn-secondary" href={`${NAV.configuration}#printing`}>
-              <span>Supported Zebra printers &amp; setup</span>
+              <span>Supported printers &amp; visual designer</span>
               <Icon name="arrow-right" size={15} />
-            </a>
-            <a class="btn btn-ghost" href={SITE.zebraZsb} target="_blank" rel="noopener noreferrer">
-              <span>Zebra Small Business / ZSB</span>
-              <Icon name="external-link" size={15} />
             </a>
           </div>
         )}

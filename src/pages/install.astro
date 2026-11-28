@@ -22,10 +22,10 @@ import { NAV } from '../lib/site';
       <h2 id="https-prereq-title">Before you install: serve over HTTPS</h2>
       <div class="callout callout-warn">
         <p>
-          <strong>HTTPS is required for mobile camera barcode scanning.</strong> iOS Safari and mobile browsers on iOS and Android disable <code>navigator.mediaDevices</code> on plain <code>http://</code> LAN addresses.
+          <strong>HTTPS is required for mobile camera barcode scanning and Web Push notifications.</strong> iOS Safari and mobile browsers on iOS and Android disable <code>navigator.mediaDevices</code> and Web Push enrollment on plain <code>http://</code> LAN addresses.
         </p>
         <p>
-          Put itemized behind a reverse proxy (Nginx Proxy Manager, Caddy, Traefik, SWAG, or Tailscale Serve) before adding it to your home screen. <a href={`${NAV.selfHost}#https`}>See the HTTPS reverse proxy guide →</a>
+          Put itemized behind a reverse proxy (Nginx Proxy Manager, Caddy, Traefik, SWAG, or Tailscale Serve) before adding it to your home screen. On iPhone and iPad, Safari also requires launching itemized from the Home Screen icon before enabling daily push digests in <strong>Settings -&gt; Notifications</strong>. <a href={`${NAV.selfHost}#https`}>See the HTTPS reverse proxy guide →</a>
         </p>
       </div>
     </div>

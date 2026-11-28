@@ -56,7 +56,7 @@ import { NAV, SITE } from '../lib/site';
       <p class="kicker">Unraid</p>
       <h2 id="unraid-title">Unraid Community Apps</h2>
       <p>
-        An official Unraid template is maintained in the repository at <a href={SITE.unraidTemplate}><code>unraid/itemized.xml</code></a>.
+        An official Unraid Community Apps template is maintained at <a href={SITE.unraidTemplate}><code>itemizedapp/itemized-unraid</code></a>.
       </p>
       <ul>
         <li>
@@ -66,7 +66,7 @@ import { NAV, SITE } from '../lib/site';
           <strong>Explicit <code>--user</code> support:</strong> If launched with an explicit non-root <code>--user</code> flag, privilege dropping is skipped automatically.
         </li>
         <li>
-          <strong>Direct LAN printer access:</strong> Standard bridge networking reaches LAN printers directly on outbound connections, supporting both Zebra ZSB IPP endpoints (<code>:631</code>) and Raw TCP ZPL printers (<code>:9100</code>).
+          <strong>Direct LAN printer access:</strong> Standard bridge networking reaches LAN label printers directly on outbound connections, supporting TCP <code>:9100</code> printers (Zebra ZPL, Brother QL, TSPL) and IPP <code>:631</code> printers (CUPS, AirPrint, Zebra ZSB).
         </li>
       </ul>
     </div>
@@ -74,15 +74,15 @@ import { NAV, SITE } from '../lib/site';
 
   <section class="section section-alt" id="https" aria-labelledby="https-title">
     <div class="wrap prose">
-      <p class="kicker">Required for mobile scanning</p>
+      <p class="kicker">Required for mobile scanning &amp; push</p>
       <h2 id="https-title">HTTPS &amp; Reverse Proxy</h2>
       <div class="callout callout-warn">
         <p>
-          <strong>Mobile browsers require HTTPS for live camera access.</strong> Modern mobile browsers (including iOS Safari and Chrome or Firefox on iOS) disable the camera API (<code>navigator.mediaDevices</code>) on plain <code>http://</code> LAN URLs such as <code>http://192.168.1.x:8080</code>.
+          <strong>Mobile browsers require HTTPS for live camera access and Web Push notifications.</strong> Modern mobile browsers (including iOS Safari and Chrome or Firefox on iOS) disable the camera API (<code>navigator.mediaDevices</code>) and Web Push enrollment on plain <code>http://</code> LAN URLs such as <code>http://192.168.1.x:8080</code>.
         </p>
       </div>
       <p>
-        To use live camera barcode scanning on phones and tablets, serve itemized over <strong>HTTPS</strong> behind a reverse proxy such as <strong>Nginx Proxy Manager</strong>, <strong>Caddy</strong>, <strong>Traefik</strong>, <strong>SWAG</strong>, or <strong>Tailscale Serve</strong>.
+        To use live camera barcode scanning and daily push digests on phones and tablets, serve itemized over <strong>HTTPS</strong> behind a reverse proxy such as <strong>Nginx Proxy Manager</strong>, <strong>Caddy</strong>, <strong>Traefik</strong>, <strong>SWAG</strong>, or <strong>Tailscale Serve</strong>.
       </p>
       <p>When running behind a reverse proxy, configure two environment variables:</p>
       <ul>

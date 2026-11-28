@@ -75,3 +75,10 @@ The marketing website SHALL NOT contain em dash characters (`—`, U+2014) or em
 #### Scenario: Visible page copy and tables
 - **WHEN** a visitor reads headings, paragraphs, list items, or configuration reference tables on any marketing website page
 - **THEN** zero em dashes appear anywhere in the rendered text, with empty configuration defaults rendered as `(none)` rather than an em dash
+
+### Requirement: Uniform borders on rounded boxes
+Rounded boxes (including `.callout`, `.callout-warn`, cards, and notice containers) SHALL use uniform 4-sided borders and SHALL NOT apply a colored accent border to only one side (such as a thick colored `border-left` stripe on a rounded box).
+
+#### Scenario: Viewing standard and warning callouts
+- **WHEN** a visitor views a standard `.callout` or warning `.callout-warn` box on `/configuration/`, `/self-host/`, or `/install/` in light or dark mode
+- **THEN** the box renders with a uniform 1px border around all four sides using its semantic border token (`--border-strong` for `.callout`, `--it-warn-border` for `.callout-warn`) and subtle surface fill, with no thicker or differently colored single-side accent stripe

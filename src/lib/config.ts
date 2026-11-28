@@ -157,7 +157,7 @@ export const DOCKER_RUN_SNIPPET = `docker run -d \\
 export interface PrinterProtocol {
   name: string;
   badge?: string;
-  endpoint: string;
+  endpoint?: string;
   notes: string;
   examples: readonly string[];
   link?: {
@@ -168,10 +168,56 @@ export interface PrinterProtocol {
 
 export const PRINTER_PROTOCOLS: readonly PrinterProtocol[] = [
   {
-    name: 'Zebra ZSB Series (IPP)',
-    badge: 'Most affordable option',
+    name: 'Browser Print / PDF (Local Printer)',
+    badge: 'No network printer needed',
+    notes: 'Opens an exact-size single- or multi-page PDF (one label per page) right in your browser for manual prints, bulk reprints, Purchase / Quick Add workflows, and automatic Open or freeze/thaw due-date reprints.',
+    examples: [
+      'Any USB or local label printer installed on macOS, Windows, or Linux',
+      'Standard desktop inkjet or laser printers via the browser print dialog',
+    ],
+  },
+  {
+    name: 'Zebra / ZPL Compatible (Raw TCP :9100)',
+    endpoint: '192.168.1.50:9100',
+    notes: 'Sends ZPL directly over TCP port 9100 to networked Ethernet or Wi-Fi Zebra thermal printers with no companion print server.',
+    examples: [
+      'Zebra ZD411, ZD421, and ZD621 (Ethernet or Wi-Fi)',
+      'Zebra ZD220 and ZD230 (networked models)',
+      'Zebra GK420d, GX420d, and industrial ZT231',
+    ],
+  },
+  {
+    name: 'Brother QL (TCP :9100)',
+    endpoint: '192.168.1.50:9100',
+    notes: 'Direct raster printing over your LAN to networked Brother QL thermal label printers, with built-in DK label presets.',
+    examples: [
+      'Brother QL-720NW',
+      'Brother QL-810W',
+      'Brother QL-820NWB',
+    ],
+  },
+  {
+    name: 'Rollo / Munbyn / TSC / iDPRT (TSPL :9100)',
+    endpoint: '192.168.1.50:9100',
+    notes: 'Direct TSPL2 printing over TCP port 9100 to networked TSPL-compatible thermal label printers.',
+    examples: [
+      'Networked Rollo and Munbyn thermal printers',
+      'TSC and iDPRT Ethernet or Wi-Fi label printers',
+    ],
+  },
+  {
+    name: 'CUPS / AirPrint / IPP Everywhere (IPP PDF)',
+    endpoint: 'http://192.168.1.50:631/printers/my-label-printer',
+    notes: 'Sends exact-size PDF labels over IPP to AirPrint printers and USB thermal printers shared through CUPS on a Raspberry Pi, NAS, or Linux host.',
+    examples: [
+      'AirPrint and IPP Everywhere network printers',
+      'USB DYMO, Rollo, Munbyn, or Brother QL-800 shared via CUPS',
+    ],
+  },
+  {
+    name: 'Zebra ZSB Series (IPP ZPL)',
     endpoint: 'http://192.168.1.50:631/ipp/print',
-    notes: 'The lowest-cost way to start printing individual barcode labels. Connects directly over Internet Printing Protocol on your LAN and works out of the box with Docker bridge networking.',
+    notes: 'Direct IPP printing to Zebra ZSB wireless label printers on your local network, with IPP roll-size auto-detection.',
     examples: [
       'Zebra ZSB-DP12 (2-inch wireless thermal printer)',
       'Zebra ZSB-DP14 (4-inch wireless thermal printer)',
@@ -180,16 +226,5 @@ export const PRINTER_PROTOCOLS: readonly PrinterProtocol[] = [
       label: 'Explore Zebra ZSB Series',
       href: SITE.zebraZsb,
     },
-  },
-  {
-    name: 'Networked Zebra ZPL Printers (Raw TCP :9100)',
-    endpoint: '192.168.1.50:9100',
-    notes: 'Sends raw ZPL commands directly to TCP port 9100 on any Ethernet or Wi-Fi Zebra thermal printer without a companion print server.',
-    examples: [
-      'Zebra ZD411, ZD421, and ZD621 (Ethernet or Wi-Fi)',
-      'Zebra ZD220 and ZD230 (networked models)',
-      'Zebra GK420d and GX420d (legacy networked models)',
-      'Zebra ZT231 (networked industrial ZPL)',
-    ],
   },
 ];

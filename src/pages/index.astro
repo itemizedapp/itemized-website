@@ -22,13 +22,13 @@ const workflowSteps = [
   },
   {
     step: 4,
-    title: 'Print a label or use the UPC',
-    body: 'Have a Zebra label printer? Print an individual barcode label. No printer? Track items directly with their existing UPC barcode.',
+    title: 'Print a custom label or use the UPC',
+    body: 'Print custom QR labels to a thermal, AirPrint/CUPS, or local browser PDF printer with the visual label designer, or track items directly using their existing UPC barcode.',
   },
   {
     step: 5,
     title: 'Track location & expiration',
-    body: 'Record where each item is stored and when it is set to expire so food gets used before it goes to waste.',
+    body: 'Record where each item is stored and when it is set to expire, backed by daily push digests and one-tap updates so food gets used before it goes to waste.',
   },
 ];
 
@@ -36,14 +36,14 @@ const dailyWorkflows = [
   {
     icon: 'package',
     title: 'Track stock and expiration dates',
-    body: 'Organize items into nested locations like Kitchen → Refrigerator → Crisper Drawer or Garage → Chest Freezer. Due-soon and overdue alerts surface food before it spoils, backed by smart rules for opening, freezing, and thawing.',
+    body: 'Organize items into nested locations like Kitchen → Refrigerator → Crisper Drawer or Garage → Chest Freezer. Due-soon and overdue alerts, one-tap Quick Consume with Undo, and smart rules for opening, freezing, and thawing help food get eaten before it spoils.',
     href: `${NAV.features}#inventory-and-expiration`,
     linkLabel: 'See inventory tracking',
   },
   {
     icon: 'scan-barcode',
-    title: 'Scan barcodes from phone or USB',
-    body: 'Use your phone camera in the mobile PWA or a USB/Bluetooth scanner in the unified Scan / Action workflow to Purchase, Consume, Open, Transfer, or run a Location Inventory Audit.',
+    title: 'Scan barcodes and QR Quick Actions',
+    body: 'Use your phone camera in the mobile PWA or a USB/Bluetooth scanner to Purchase, Consume, Open, Transfer, or run an Audit. Point your phone’s native camera at any printed QR label to jump straight to a mobile QR Quick Action screen.',
     href: `${NAV.features}#barcode-and-qr-scanning`,
     linkLabel: 'See scanning workflow',
   },
@@ -59,10 +59,17 @@ const dailyWorkflows = [
 const craftHighlights = [
   {
     icon: 'printer',
-    title: 'Direct LAN Zebra ZPL label printing',
-    body: 'Print individual barcode and QR labels directly to networked Raw TCP (:9100) Zebra ZPL printers like the ZD411, ZD421, ZD621, or legacy GK420d, as well as Zebra ZSB (IPP) printers, with no companion print server needed. Prefer not to print labels? Track items with their existing UPC barcodes.',
+    title: 'Universal label printing & visual designer',
+    body: 'Design item, product, and location labels on a 3x3 anchor grid with live previews, then print exact-size labels via Browser Print / PDF, Brother QL, Zebra ZPL or ZSB, Rollo/Munbyn/TSPL, or CUPS/AirPrint with no companion print server. Tracking with existing UPC barcodes works with no printer at all.',
     href: `${NAV.configuration}#printing`,
-    linkLabel: 'Supported printers & setup',
+    linkLabel: 'Supported printers & designer',
+  },
+  {
+    icon: 'bell',
+    title: 'Daily push digests & Home Assistant API',
+    body: 'Receive native Web Push daily digests for expiring items and your shopping list on iOS, Android, and desktop with no third-party push account. Connect Home Assistant REST sensors, iOS Shortcuts, or scripts using Personal API Tokens and GET /api/summary.',
+    href: `${NAV.features}#notifications-and-integrations`,
+    linkLabel: 'Explore notifications & API',
   },
   {
     icon: 'search',
@@ -130,7 +137,7 @@ const nextSteps = [
 <Base
   title="itemized | Self-hosted household inventory to reduce food waste"
   bareTitle
-  description="Self-hosted household inventory management on a mission to reduce food waste, with expiration tracking, OpenFoodFacts + LLM barcode scanning, and direct Zebra ZPL label printing in a single Go binary."
+  description="Self-hosted household inventory management on a mission to reduce food waste, with expiration tracking, OpenFoodFacts + LLM barcode scanning, universal label printing with a visual label designer, and Web Push daily digests in a single Go binary."
 >
   <JsonLd
     slot="head"
@@ -173,7 +180,7 @@ const nextSteps = [
         <p class="kicker">Self-hosted household inventory</p>
         <h1 id="hero-title">Know what is in your pantry, fridge, and freezer, and reduce food waste.</h1>
         <p class="lp-lede">
-          Itemized is a self-hosted home inventory system on a mission to reduce household food waste. Scan purchases, track storage locations and expiration dates, keep an automatic shopping list, and optionally print Zebra ZPL labels, all in a single Go binary.
+          Itemized is a self-hosted home inventory system on a mission to reduce household food waste. Scan purchases, track storage locations and expiration dates, keep an automatic shopping list, receive daily push digests, and design custom labels for thermal or browser PDF printers, all in a single Go binary.
         </p>
         <div class="cta-row">
           <a class="btn btn-primary btn-large" href={SITE.demo}>
@@ -255,13 +262,13 @@ const nextSteps = [
   <section class="section section-alt" aria-labelledby="craft-title">
     <div class="wrap">
       <div class="section-head">
-        <p class="kicker">Built for real hardware</p>
-        <h2 id="craft-title">Direct label printing and instant navigation</h2>
+        <p class="kicker">Built for real hardware &amp; automations</p>
+        <h2 id="craft-title">Visual label design, daily digests, and instant navigation</h2>
         <p class="lede">
-          Skip companion print daemons and sluggish search bars. Itemized talks straight to your LAN Zebra printer and indexes every item locally with SQLite FTS5.
+          Skip companion print daemons, third-party push services, and sluggish search bars. Itemized renders labels on the server, sends native Web Push digests, exposes a Home Assistant summary API, and indexes every item locally with SQLite FTS5.
         </p>
       </div>
-      <div class="grid-2">
+      <div class="grid-3">
         {craftHighlights.map((item) => (
           <article class="card">
             <div class="card-icon"><Icon name={item.icon} size={20} /></div>

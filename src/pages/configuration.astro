@@ -29,7 +29,7 @@ const categories: { id: 'core' | 'oidc' | 'llm' | 'demo'; title: string; summary
 ---
 <Base
   title="Configuration & Label Printing"
-  description="Complete environment variable reference, OIDC SSO, optional AI barcode normalization, and direct LAN Zebra ZPL label printing setup for itemized."
+  description="Complete environment variable reference, OIDC SSO, optional AI barcode normalization, universal label printing drivers, and Visual Label Designer setup for itemized."
 >
   <header class="page-head">
     <div class="wrap">
@@ -40,7 +40,7 @@ const categories: { id: 'core' | 'oidc' | 'llm' | 'demo'; title: string; summary
       </p>
       <nav class="jump-nav" aria-label="Configuration sections">
         <a href="#env-vars">Environment Variables</a>
-        <a href="#printing">Zebra Label Printing</a>
+        <a href="#printing">Label Printing &amp; Designer</a>
       </nav>
     </div>
   </header>
@@ -94,14 +94,14 @@ const categories: { id: 'core' | 'oidc' | 'llm' | 'demo'; title: string; summary
   <section class="section section-alt" id="printing" aria-labelledby="printing-title">
     <div class="wrap">
       <div class="section-head">
-        <p class="kicker">Direct LAN Printing</p>
-        <h2 id="printing-title">Zebra ZPL label printing</h2>
+        <p class="kicker">Universal Label Printing</p>
+        <h2 id="printing-title">Supported printers &amp; Visual Label Designer</h2>
         <p class="lede">
-          Itemized prints QR labels straight to Zebra printers on your local network without a companion print server or browser plugin.
+          Itemized renders printer-agnostic QR labels on the server and prints directly to network thermal printers, CUPS/AirPrint printers, or local browser PDFs without a companion print server.
         </p>
       </div>
 
-      <div class="grid-2">
+      <div class="grid-3">
         {PRINTER_PROTOCOLS.map((proto) => (
           <article class="card">
             <div class="card-head-row">
@@ -109,7 +109,7 @@ const categories: { id: 'core' | 'oidc' | 'llm' | 'demo'; title: string; summary
               {proto.badge && <span class="badge">{proto.badge}</span>}
             </div>
             <h3>{proto.name}</h3>
-            <p>Example endpoint: <code>{proto.endpoint}</code></p>
+            {proto.endpoint && <p>Example endpoint: <code>{proto.endpoint}</code></p>}
             <p>{proto.notes}</p>
             <ul class="printer-examples">
               {proto.examples.map((model) => (
@@ -127,20 +127,29 @@ const categories: { id: 'core' | 'oidc' | 'llm' | 'demo'; title: string; summary
       </div>
 
       <div class="prose" style="margin-top: 2rem;">
-        <h3>Choosing a printer (or tracking without one)</h3>
+        <h3>Label sizes and auto-detection</h3>
         <p>
-          If you want to print individual barcode labels for each item, the <a href={PRINTER_PROTOCOLS[0].link!.href} target="_blank" rel="noopener noreferrer">Zebra ZSB Series</a> is the most affordable entry point and connects over IPP on your local network. If you already own or prefer a classic Zebra thermal label printer, any networked (Ethernet or Wi-Fi) Zebra model that speaks ZPL over TCP port <code>9100</code> works directly with itemized, including the <strong>ZD411</strong>, <strong>ZD421</strong>, <strong>ZD621</strong>, networked <strong>ZD220/ZD230</strong>, legacy networked <strong>GK420d/GX420d</strong>, and industrial <strong>ZT231</strong>.
+          Every printer profile supports <strong>Auto-detect</strong> for IPP printers (querying the loaded roll size automatically when you save), built-in presets such as <code>2.25" x 1.25"</code> and Brother <code>DK-1209 62 x 29 mm</code>, or custom dimensions in <code>mm</code> or <code>in</code> along with configurable <strong>DPI</strong> and <strong>Die-Cut / Continuous</strong> media types.
         </p>
         <p>
-          <strong>No label printer? No problem.</strong> Printing individual item labels is optional. You can scan and track groceries directly using their existing retail UPC barcodes.
+          <strong>No label printer? No problem.</strong> Printing labels is optional. You can track groceries directly using their existing retail UPC barcodes, or use <strong>Browser Print / PDF</strong> with any printer already connected to your computer.
         </p>
-        <h3>Customizable Go-template ZPL layouts</h3>
+        <h3>Visual Label Designer</h3>
         <p>
-          You can customize ZPL label templates using Go’s template syntax for <strong>items</strong>, <strong>products</strong>, and <strong>locations</strong>. Printed QR codes encode your configured <code>BASE_URL</code>, so scanning any printed label with your phone opens that exact item or storage location in itemized.
+          Under <strong>Settings -&gt; Label Printing -&gt; Label Designer</strong>, design separate layouts for <strong>item</strong>, <strong>product</strong>, and <strong>location</strong> labels without writing raw printer commands:
+        </p>
+        <ul>
+          <li>Place the optional <strong>QR Code</strong> and each field onto any cell of the <strong>3x3 anchor grid</strong> (<code>Top Left</code> through <code>Bottom Right</code>).</li>
+          <li>Configure independent <strong>text alignment</strong> (<code>Left</code>, <code>Center</code>, or <code>Right</code>), <strong>font size</strong>, <strong>bold</strong>, and <strong>icons</strong> per field, and toggle or reorder fields freely.</li>
+          <li>Use the <strong>Live Preview</strong> size switcher to inspect exact rendered output for any configured printer or label preset before saving, or restore defaults anytime with <strong>Reset to Default</strong>.</li>
+        </ul>
+        <h3>Product label modes</h3>
+        <p>
+          Each product lets you choose what prints automatically during <strong>Purchase</strong> and when opening, freezing, or thawing updates an item’s due date: <strong>No automatic label</strong> (<code>none</code>), <strong>One label per item</strong> (<code>per_item</code>, encoding a unique <code>/go/i/:id</code> QR), or <strong>One product label</strong> (<code>per_product</code>, encoding a reusable <code>/go/p/:id</code> QR).
         </p>
         <div class="callout">
           <p>
-            <strong>Set <code>BASE_URL</code> before printing labels.</strong> If you print labels while running behind a reverse proxy, make sure <code>BASE_URL</code> points to your HTTPS domain (for example <code>https://itemized.example.com</code>) so scanned QR labels work reliably on mobile devices.
+            <strong>Set <code>BASE_URL</code> before printing labels.</strong> If you print labels while running behind a reverse proxy, make sure <code>BASE_URL</code> points to your HTTPS domain (for example <code>https://itemized.example.com</code>) so scanning any QR label with your phone’s native camera opens the QR Quick Action screen reliably.
           </p>
         </div>
         <div class="cta-row" style="margin-top: 1.5rem;">
